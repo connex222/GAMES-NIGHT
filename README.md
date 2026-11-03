@@ -22,3 +22,13 @@ Created on a dedicated documentation review branch. No gameplay, application fil
 - Verify the latest deployed version, if any.
 - Confirm dependencies, setup and automated tests.
 - Record current project ownership and intended status.
+
+## Render inventory update — 3 November 2026
+
+The dashboard was compared against Render's confirmed My Workspace service inventory.
+15 unique games are represented: the existing 12 plus Aether & Deception, The Vault Job and Cyber Cypher.
+The suspended Iron Crown preview service is deliberately excluded.
+Three new original SVG logo treatments are included under `assets/`. These are launcher artwork rather than the games' official identity assets.
+
+Live site: https://games-night-wfmz.onrender.com
+Deployment: Render static site, publish path `.`, automatic deployment from `main`.
