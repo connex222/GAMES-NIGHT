@@ -72,3 +72,29 @@ Versions below are from **current GitHub main `package.json`**; they are **not**
 - **Not authorised/performed:** delete/archive branches or repositories, force push, broad merge, change secrets, deploy/restart game services, mark draft DB/security code released, tag untested builds.
 
 Source of record: [GAME NIGHT Master Alpha board](https://github.com/connex222/GAMES-NIGHT/issues/2). This document deliberately keeps unverified items open.
+
+## Exact live-commit reconciliation, refreshed 4 November 2026
+The connected Render deployment history was fetched for **all 16 active game web services**; latest status is **live** in all cases. Each displayed commit SHA was independently compared to current GitHub `main` using the GitHub compare endpoint. **15/16 identical**; the only difference is RAGNAGROK, whose extra commit edits one test file. This is a deploy/repository-consistency audit, **not** gameplay or media certification.
+
+| Game | Render live commit (prefix) | Relative to current GitHub main |
+|---|---|---|
+| FORGERS-FINGERS | `b309773b` | identical |
+| CYBER-CYPHER | `299e6901` | identical |
+| THE-VAULT-JOB | `00f1536e` | identical |
+| Aether-Deception | `a5badc8a` | identical |
+| IRON-CROWN | `9c218f10` | identical |
+| STARFALL-LANES | `dc674a66` | identical |
+| FIVE-CROWNS | `6d29fd94` | identical |
+| RAGNAGROK-2 | `17ba9504` | main +1 test-only commit |
+| TIDEWATER | `e26cc4fe` | identical |
+| STACKHOUSE | `a77cf022` | identical |
+| GILDED-DECK | `a979bc22` | identical |
+| LAST-CARD | `ea50927f` | identical |
+| GILDED-FIVE | `e303e8e4` | identical |
+| ECKY-THUMP | `abcfe360` | identical |
+| NOGGIN | `6a4d6891` | identical |
+| Pub-Quiz-Powerhouse | `1a133b6e` | identical |
+
+### Additional high-priority security finding
+- [AETHER & DECEPTION #2](https://github.com/connex222/Aether-Deception/issues/2) documents two source-verified blockers in **current main's** PostgreSQL adapter: raw JSONB snapshot serialisation includes host/player access tokens (not encrypted at the application layer); expiration is fixed at `createdAt + 12h` even for updated active rooms. Neither implies a confirmed compromise. The diverged older staging branch must not overwrite the newer current main. Require a separately reviewed migration and database-backed tests before claiming safe durable recovery.
+- Independent three-game health and multi-game current-main QA Windows package prepared; no successful result has been claimed until the owner runs it and provides logs.
