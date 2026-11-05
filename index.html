@@ -650,12 +650,98 @@
   .g-aether .tagline,.g-vault .tagline {color:#efc987}
   .g-cyber .tagline {color:#61ecf9}
   .g-aether .logo,.g-vault .logo,.g-cyber .logo {width:min(100%,440px);height:auto;max-height:125px;object-fit:contain;object-position:left center}
+
+/* November AAA responsive TV, PC and tablet launcher */
+.g-forgers {--glow:#e1b26a;background:radial-gradient(circle at 80% 12%,rgba(183,86,46,.28),transparent 60%),linear-gradient(145deg,#21151b,#342327 63%,#150d15);color:#fff2de;border-color:rgba(225,178,106,.5)}
+.g-forgers .tagline {color:#f2c98c}
+.g-forgers .logo {width:min(100%,440px);height:auto;max-height:125px;object-fit:contain;object-position:left center}
+.premium-hero-logo{display:block;width:min(100%,850px);height:auto;filter:drop-shadow(0 8px 23px rgba(250,174,65,.23))}
+.nav-premium-logo{display:block;width:clamp(140px,16vw,230px);height:auto}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.music-volume{display:inline-flex;gap:.55rem;align-items:center;color:#ffe7b8;font-weight:600}
+.music-volume input{width:90px;accent-color:#efbe62}
+.music-volume:focus-within{outline:2px solid #ffd46d;outline-offset:4px}
+html,body{overflow-x:hidden}
+.wrap{width:100%;max-width:120rem}
+.grid>li,.game{min-width:0}
+.game .name,.game .tagline,.game .desc,.game .play{overflow-wrap:anywhere}
+@media(min-width:1024px){
+ .wrap{padding:10px clamp(12px,1.5vw,28px) 12px}
+ .site-nav{min-height:43px;padding:2px 0;margin-bottom:8px}
+ .nav-premium-logo{width:clamp(116px,12vw,175px)}
+ header.top{min-height:0;height:clamp(118px,17vh,170px);padding:clamp(9px,1.3vh,15px) clamp(15px,2vw,28px);margin-bottom:7px;gap:12px;grid-template-columns:minmax(0,1fr) minmax(200px,23%)}
+ .marquee{padding:6px;border-radius:18px}
+ .marquee-inner{padding:8px 15px;border-radius:12px}
+ .premium-hero-logo{width:min(100%,520px);max-height:80px;object-fit:contain;object-position:left}
+ .kicker{font-size:.72rem;margin:0 0 1px}
+ .intro{margin:0;font-size:clamp(.75rem,.9vw,.93rem)}
+ .hero-features{display:none}
+ .side{min-width:0;gap:5px}
+ .summary{padding:4px 9px;font-size:clamp(.72rem,.85vw,.9rem)}
+ button.spin{min-height:38px;padding:5px 10px;font-size:clamp(.87rem,1.12vw,1.2rem)}
+ .pick-result{min-height:1rem;font-size:.8rem}
+ .games-heading{margin:5px 0 7px}
+ .games-heading h2{font-size:.8rem}
+ .games-heading>span{font-size:.74rem}
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,.8vh,11px) clamp(7px,.8vw,13px);align-items:stretch}
+ .game{min-height:0;height:clamp(109px,calc((100dvh - 315px)/4),185px);padding:clamp(7px,.75vw,14px);border-width:1px;border-radius:12px}
+ .game .name{margin:0 0 2px;font-size:clamp(1rem,1.4vw,1.6rem);line-height:1.06}
+ .game .name .logo,.game .logo,.g-forgers .logo,.g-aether .logo,.g-vault .logo,.g-cyber .logo{display:block;width:100%;max-width:100%;height:clamp(35px,5vh,63px);max-height:clamp(35px,5vh,63px);min-height:0;margin:0 auto 2px;object-fit:contain;object-position:center;aspect-ratio:auto}
+ .game .tagline{font-size:clamp(.7rem,.8vw,.88rem);line-height:1.2;margin:0 0 2px;max-width:none}
+ .game .desc{font-size:clamp(.69rem,.78vw,.87rem);line-height:1.2;margin:0 0 3px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+ .game .play{display:none}
+ .game .status{margin-top:auto;padding:2px 7px;font-size:clamp(.67rem,.78vw,.82rem);line-height:1.15}
+ .controls{margin-top:8px;padding:5px 12px;gap:5px 12px;font-size:.78rem}
+ .controls p{display:none}
+ .controls button{padding:5px 10px}
+ .controls .toggle{min-height:27px}
+ .music-volume input{width:75px}
+}
+@media(min-width:1024px) and (max-height:820px){
+ .site-nav{min-height:35px;margin-bottom:5px}
+ header.top{height:105px;padding:6px 13px}
+ .marquee-inner{padding:3px 11px}
+ .premium-hero-logo{max-height:51px}
+ .kicker{display:none}
+ .intro{font-size:.76rem}
+ .grid{gap:5px 8px}
+ .game{height:max(102px,calc((100dvh - 244px)/4));padding:6px 9px}
+ .game .name .logo,.game .logo,.g-forgers .logo,.g-aether .logo,.g-vault .logo,.g-cyber .logo{height:36px;max-height:36px}
+ .game .desc{-webkit-line-clamp:1}
+ .game .tagline{margin-bottom:0}
+ .games-heading{margin:3px 0 4px}
+ .controls{margin-top:5px;padding:3px 8px}
+}
+@media(min-width:700px) and (max-width:1023px){
+ .wrap{padding:15px}
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+ .game{min-height:215px;padding:13px}
+ .game .name{margin:0 0 8px;font-size:clamp(1.2rem,2.3vw,1.8rem)}
+ .game .name .logo,.game .logo{max-height:85px}
+ .game .desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+ .game .play{display:none}
+}
+@media(max-width:699px){
+ .wrap{padding:12px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .game{padding:10px;min-height:175px}
+ .game .name{margin:0 0 5px;font-size:clamp(1.05rem,3.2vw,1.4rem)}
+ .game .name .logo,.game .logo{max-height:65px}
+ .game .desc{font-size:.78rem;line-height:1.3;margin:3px 0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+ .game .tagline{font-size:.78rem;line-height:1.3}
+ .game .play{display:none}
+ .game .status{padding:3px 7px;font-size:.75rem}
+ .controls{gap:9px}
+ .controls p{flex-basis:100%}
+}
+@media(max-width:400px){.grid{grid-template-columns:1fr}.game{min-height:180px}.game .logo{max-height:77px}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <nav class="site-nav" aria-label="Game Night navigation">
-    <a class="site-brand" href="#top" aria-label="Game Night home"><span class="brand-die" aria-hidden="true">⚄</span><span>GAME NIGHT</span></a>
+    <a class="site-brand" href="#top" aria-label="Game Night home"><img class="nav-premium-logo" src="assets/games-night-aaa-logo.svg" alt="Games Night"></a>
     <div class="site-nav-links">
       <a href="#top" aria-current="page">Home</a>
       <a href="#games">Games</a>
@@ -669,7 +755,7 @@
     <div class="marquee">
       <div class="marquee-inner">
         <p class="kicker">Tonight’s line-up</p>
-        <h1>Game Night<span class="title-spark" aria-hidden="true">✦</span></h1>
+        <h1 class="visually-hidden">Games Night</h1><img class="premium-hero-logo" src="assets/games-night-aaa-logo.svg" alt="Games Night — The Party Game Collection">
         <p class="intro">Pick a game. Open it on the TV, then join on your phones.</p>
         <div class="hero-features" aria-label="How Game Night works">
           <span class="hero-feature"><span class="feature-icon" aria-hidden="true">♧</span><span><strong>Play together</strong><small>On your phones</small></span></span>
@@ -687,7 +773,7 @@
 
   <div class="games-heading" id="games">
     <h2>Featured games</h2>
-    <span id="gameCount">12 games in the collection</span>
+    <span id="gameCount">16 games in the collection</span>
   </div>
   <ul class="grid" id="grid" aria-label="Choose a game"></ul>
   <canvas id="confetti" aria-hidden="true"></canvas>
@@ -696,6 +782,9 @@
     <p>Free hosting puts each game to sleep after 15 minutes with no visitors, and the first load can take up to a minute. While this page is open, it wakes every game and keeps them awake.</p>
     <label class="toggle"><input type="checkbox" id="keepAwake" checked> Keep games awake</label>
     <label class="toggle"><input type="checkbox" id="soundOn" checked> Sounds</label>
+    <label class="toggle"><input type="checkbox" id="musicOn"> Gameshow music</label>
+    <label class="music-volume">Volume <input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="32"></label>
+    <audio id="showMusic" src="assets/games-night-showtime.wav" preload="none" loop></audio>
     <button class="wake" id="wakeAll" type="button">Wake all now</button>
   </section>
 </div>
@@ -784,6 +873,11 @@ const GAMES = [
     desc: "A Victorian-inspired heist party game. Gather your crew, outwit the opposition and chase a daring score through a world of brass, intrigue and criminal ambition.",
     play: "TV and phones", motif: "none", logo: "vault" },
 
+  { style: "forgers", name: "Forger's Finger", url: "https://forgers-fingers-1.onrender.com",
+    tagline: "Trust the evidence. Question the forger.",
+    desc: "An atmospheric forgery-and-deduction game. Examine clues, challenge suspicious details and spot the deception before time runs out.",
+    play: "Open the game to view its player modes", motif: "none", logo: "forgers" },
+
   { style: "cyber", name: "Cyber Cypher", url: "https://cyber-cypher-j2ry.onrender.com",
     tagline: "Trust no signal. Crack every code.",
     desc: "A 2035 cyber-noir word-spy party game. Rival teams exchange clues, uncover hidden operatives and avoid the assassin in a rain-soaked holographic intelligence war.",
@@ -811,6 +905,7 @@ const FACES = {
 
 /* Official logos, packed in so the page works offline */
 const LOGOS = {
+  forgers: "assets/forgers-finger-logo.svg",
   aether: "assets/aether-logo.svg",
   vault: "assets/vault-logo.svg",
   cyber: "assets/cyber-logo.svg",
@@ -998,6 +1093,21 @@ grid.addEventListener("keydown", (e) => {
 
 
 /* ---------- Sound effects (made in the browser, no files) ---------- */
+const musicOn = document.getElementById("musicOn");
+const musicVolume = document.getElementById("musicVolume");
+const showMusic = document.getElementById("showMusic");
+showMusic.volume = .32;
+musicOn.addEventListener("change", async () => {
+  if (!musicOn.checked) { showMusic.pause(); return; }
+  try { await showMusic.play(); }
+  catch (err) { musicOn.checked = false; console.warn("Music could not start:", err); }
+});
+musicVolume.addEventListener("input", () => {showMusic.volume = Number(musicVolume.value) / 100;});
+showMusic.addEventListener("error", () => {musicOn.checked = false; console.warn("Gameshow audio could not be loaded.");});
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) showMusic.pause();
+  else if (musicOn.checked) showMusic.play().catch(() => {musicOn.checked=false;});
+});
 const soundOn = document.getElementById("soundOn");
 let audio = null;
 function tone(freq, start, dur, type, vol) {
