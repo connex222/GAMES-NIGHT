@@ -736,6 +736,63 @@ html,body{overflow-x:hidden}
 }
 @media(max-width:400px){.grid{grid-template-columns:1fr}.game{min-height:180px}.game .logo{max-height:77px}}
 
+
+/* Feature edition: restore full-sized cards and readable descriptions */
+.wrap {max-width: 1440px; width:calc(100% - 28px); margin-inline:auto; padding:12px 0 32px}
+header.top {height:auto!important; min-height:0!important; padding:18px 22px!important; margin:8px 0 20px!important; grid-template-columns:minmax(0,1fr) minmax(230px,28%)!important}
+.marquee,.marquee-inner{height:auto!important;min-height:0!important}
+.premium-hero-logo{width:min(100%,850px)!important;max-height:150px!important;height:auto!important;object-fit:contain;object-position:left}
+.hero-features{display:flex!important;flex-wrap:wrap}
+.games-heading{margin:12px 0!important}
+.games-heading h2{font-size:clamp(1.15rem,1.6vw,1.7rem)!important}
+.game-chooser{border:1px solid rgba(255,207,105,.48);background:linear-gradient(110deg,#24112e,#12162f);box-shadow:0 12px 35px rgba(0,0,0,.2);border-radius:18px;padding:15px;margin:0 0 12px}
+.chooser-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#ffeac4;font-size:clamp(.85rem,1vw,1.05rem);margin:0 0 10px}
+.chooser-heading span{color:#c8bde1;font-weight:normal;font-size:.83rem}
+.game-chooser-row{display:flex;gap:8px;align-items:stretch}
+.game-strip{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#ffc86d #23132d;padding:4px 2px 9px;flex:1;min-width:0}
+.game-name-button{flex:0 0 auto;scroll-snap-align:center;min-width:138px;min-height:60px;max-width:240px;padding:9px 16px;color:#fff2df;font:700 clamp(.85rem,.95vw,1rem)/1.15 system-ui,sans-serif;white-space:normal;border:1px solid rgba(255,255,255,.25);border-radius:11px;background:linear-gradient(#392647,#1a132c);cursor:pointer}
+.game-name-button:hover,.game-name-button:focus-visible{outline:2px solid #fff0ab;outline-offset:2px;background:#553461}
+.game-name-button.is-selected{background:linear-gradient(135deg,#ffd98a,#d18d36);color:#1b1031;border-color:#fff1a0;box-shadow:0 0 0 2px rgba(255,213,109,.32),0 0 22px rgba(239,183,61,.23)}
+.strip-arrow{flex:0 0 39px;border-radius:10px;border:1px solid #e0ac68;background:#241228;color:#ffdf9c;font-size:1.85rem;cursor:pointer}
+.strip-arrow:focus-visible{outline:3px solid #fff3a1;outline-offset:2px}
+.selection-caption{color:#ffe0ad;font:700 clamp(.9rem,1.2vw,1.15rem)/1.4 system-ui,sans-serif;padding:4px 6px 9px;margin:0}
+.featured-grid{display:block!important;list-style:none;margin:0!important;padding:0!important}
+.featured-grid>li{display:none!important;width:100%;min-width:0}
+.featured-grid>li.is-selected{display:flex!important}
+.featured-grid>li[hidden]{display:none!important}
+.featured-grid .game{width:100%;height:auto!important;min-height:clamp(390px,52vh,710px)!important;padding:clamp(26px,3vw,55px)!important;display:flex!important;flex-direction:column;align-items:flex-start;gap:clamp(8px,1.4vh,18px);border-radius:26px;overflow:visible}
+.featured-grid .game .name{font-size:clamp(2.2rem,4.2vw,4.8rem)!important;line-height:1.08;margin:0!important;width:100%;max-width:100%;position:relative}
+.featured-grid .game .name .logo,.featured-grid .game .logo,.featured-grid .g-forgers .logo,.featured-grid .g-aether .logo,.featured-grid .g-vault .logo,.featured-grid .g-cyber .logo{width:min(100%,780px)!important;max-width:100%!important;height:clamp(130px,19vh,220px)!important;max-height:220px!important;object-fit:contain;object-position:left center;margin:0!important}
+.featured-grid .game .tagline{font-size:clamp(1.3rem,2vw,2.25rem)!important;line-height:1.22;margin:0!important;max-width:80ch}
+.featured-grid .game .desc{font-size:clamp(1.08rem,1.5vw,1.6rem)!important;line-height:1.45!important;display:block!important;overflow:visible!important;-webkit-line-clamp:unset!important;max-width:90ch;margin:0!important;opacity:1}
+.featured-grid .game .play{display:block!important;font-size:clamp(1rem,1.2vw,1.25rem)!important;margin:0!important}
+.featured-grid .game .status{font-size:clamp(.9rem,1vw,1.1rem)!important;margin:4px 0 0!important}
+.featured-grid .game .launch-action{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 30px;background:linear-gradient(#fff0bc,#edb958 56%,#c7822e);color:#231226;border-radius:14px;border:2px solid #fff5c6;font:900 clamp(1rem,1.2vw,1.28rem) system-ui,sans-serif;box-shadow:0 7px 20px rgba(0,0,0,.35)}
+.featured-grid .game:hover .launch-action,.featured-grid .game:focus-visible .launch-action{filter:brightness(1.12)}
+.featured-grid .game .motif{opacity:.36;pointer-events:none}
+.featured-grid .game .faces{max-width:100%}
+.featured-grid .game .pills{max-width:100%}
+.controls{margin-top:20px!important;padding:16px!important;font-size:1rem!important}
+.controls p{display:block!important}
+.music-volume input{width:125px}
+@media(max-width:760px){
+ .wrap{width:calc(100% - 20px)}
+ header.top{grid-template-columns:1fr!important;padding:13px!important;margin:6px 0 15px!important;gap:12px!important}
+ .premium-hero-logo{max-height:105px!important}
+ .hero-features{display:none!important}
+ .game-chooser{padding:10px}
+ .chooser-heading span{font-size:.72rem}
+ .strip-arrow{flex-basis:32px}
+ .game-name-button{min-width:125px;min-height:54px;padding:8px;font-size:.84rem}
+ .featured-grid .game{min-height:400px!important;padding:25px 17px!important}
+ .featured-grid .game .name{font-size:clamp(1.75rem,7vw,3rem)!important}
+ .featured-grid .game .name .logo,.featured-grid .game .logo{height:120px!important;max-height:150px!important}
+ .featured-grid .game .tagline{font-size:1.32rem!important}
+ .featured-grid .game .desc{font-size:1.02rem!important;line-height:1.45!important}
+ .controls{padding:12px!important}
+}
+@media(prefers-reduced-motion:reduce){.game-strip{scroll-behavior:auto}}
+
 </style>
 </head>
 <body>
@@ -775,7 +832,16 @@ html,body{overflow-x:hidden}
     <h2>Featured games</h2>
     <span id="gameCount">16 games in the collection</span>
   </div>
-  <ul class="grid" id="grid" aria-label="Choose a game"></ul>
+  <div class="game-chooser" aria-label="Choose from all 16 games">
+    <div class="chooser-heading"><strong>CHOOSE A GAME</strong><span>All 16 games · scroll sideways to see more</span></div>
+    <div class="game-chooser-row">
+      <button type="button" class="strip-arrow" id="stripPrev" aria-label="Scroll game names left">‹</button>
+      <div class="game-strip" id="gameStrip" role="group" aria-label="Select a game to preview"></div>
+      <button type="button" class="strip-arrow" id="stripNext" aria-label="Scroll game names right">›</button>
+    </div>
+  </div>
+  <p class="selection-caption" id="selectionCaption" aria-live="polite">Choose a game above to see its details and launch it.</p>
+  <ul class="grid featured-grid" id="grid" aria-label="Selected game — full preview"></ul>
   <canvas id="confetti" aria-hidden="true"></canvas>
 
   <section class="controls" id="how-it-works" aria-label="Keeping games awake">
@@ -784,7 +850,7 @@ html,body{overflow-x:hidden}
     <label class="toggle"><input type="checkbox" id="soundOn" checked> Sounds</label>
     <label class="toggle"><input type="checkbox" id="musicOn"> Gameshow music</label>
     <label class="music-volume">Volume <input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="32"></label>
-    <audio id="showMusic" src="assets/games-night-showtime.wav" preload="none" loop></audio>
+    <audio id="showMusic" src="https://cdn.creativeclaw.co/u/f3e7a3b1/audio/4c02b176-0403-4a40-bd6f-8f750e1e0648.mp3" preload="none" loop></audio>
     <button class="wake" id="wakeAll" type="button">Wake all now</button>
   </section>
 </div>
@@ -945,7 +1011,8 @@ const tiles = GAMES.map((g) => {
     '<p class="tagline"></p>' +
     '<p class="desc"></p>' +
     '<p class="play"></p>' +
-    '<span class="status"><span class="dot" aria-hidden="true"></span><span class="label">Waking up…</span></span>';
+    '<span class="status"><span class="dot" aria-hidden="true"></span><span class="label">Waking up…</span></span>' +
+    '<span class="launch-action">▶ OPEN GAME <span aria-hidden="true">→</span></span>';
   const nameEl = a.querySelector(".name");
   if (g.motif === "none") a.querySelector(".motif").remove();
   if (g.brand) {
@@ -1075,20 +1142,55 @@ function stopKeepAwake() { clearInterval(keepTimer); keepTimer = null; }
 keepAwake.addEventListener("change", () => { keepAwake.checked ? (startKeepAwake(), wakeAll(true)) : stopKeepAwake(); });
 wakeAllBtn.addEventListener("click", () => wakeAll(false));
 
-/* ---------- TV remote / keyboard arrows move between tiles ---------- */
+/* ---------- Large featured tile with complete horizontal game selector ---------- */
+const gameStrip = document.getElementById("gameStrip");
+const selectionCaption = document.getElementById("selectionCaption");
+const gameButtons = tiles.map((t, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "game-name-button";
+  b.textContent = t.game.name;
+  b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+  b.setAttribute("aria-label", "Preview " + t.game.name);
+  b.addEventListener("click", () => selectGame(i, true));
+  gameStrip.appendChild(b);
+  return b;
+});
+let selectedGame = -1;
+function selectGame(index, scrollName = false) {
+  if (index < 0 || index >= tiles.length) return;
+  selectedGame = index;
+  tiles.forEach((t, i) => {
+    const chosen = i === index;
+    t.el.parentElement.classList.toggle("is-selected", chosen);
+    t.el.parentElement.hidden = !chosen;
+    t.el.tabIndex = chosen ? 0 : -1;
+    gameButtons[i].classList.toggle("is-selected", chosen);
+    gameButtons[i].setAttribute("aria-pressed", String(chosen));
+    gameButtons[i].tabIndex = 0;
+  });
+  const game = tiles[index].game;
+  selectionCaption.textContent = "NOW SHOWING: " + game.name + " · " + game.tagline + " — select the large tile to play.";
+  if (scrollName) gameButtons[index].scrollIntoView({block:"nearest",inline:"nearest",behavior:"auto"});
+}
+selectGame(0);
+document.getElementById("stripPrev").addEventListener("click", () => gameStrip.scrollBy({left:-Math.max(320,gameStrip.clientWidth*.75),behavior:"smooth"}));
+document.getElementById("stripNext").addEventListener("click", () => gameStrip.scrollBy({left:Math.max(320,gameStrip.clientWidth*.75),behavior:"smooth"}));
+gameStrip.addEventListener("keydown", (e) => {
+  if (!["ArrowLeft","ArrowRight","Home","End"].includes(e.key)) return;
+  const i = gameButtons.indexOf(document.activeElement);
+  if (i < 0) return;
+  e.preventDefault();
+  let next = e.key === "Home" ? 0 : e.key === "End" ? gameButtons.length-1 : (i+(e.key==="ArrowRight"?1:-1)+gameButtons.length)%gameButtons.length;
+  selectGame(next, true);
+  gameButtons[next].focus({preventScroll:true});
+});
 grid.addEventListener("keydown", (e) => {
-  const keys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
-  if (!keys.includes(e.key)) return;
-  const links = tiles.map((t) => t.el);
-  const i = links.indexOf(document.activeElement);
-  if (i === -1) return;
-  const cols = getComputedStyle(grid).gridTemplateColumns.split(" ").length;
-  let n = i;
-  if (e.key === "ArrowLeft") n = i - 1;
-  if (e.key === "ArrowRight") n = i + 1;
-  if (e.key === "ArrowUp") n = i - cols;
-  if (e.key === "ArrowDown") n = i + cols;
-  if (n >= 0 && n < links.length) { e.preventDefault(); links[n].focus(); }
+  if (!["ArrowLeft","ArrowRight"].includes(e.key)) return;
+  e.preventDefault();
+  const next=(selectedGame+(e.key==="ArrowRight"?1:-1)+tiles.length)%tiles.length;
+  selectGame(next,true);
+  tiles[next].el.focus({preventScroll:true});
 });
 
 
@@ -1103,7 +1205,13 @@ musicOn.addEventListener("change", async () => {
   catch (err) { musicOn.checked = false; console.warn("Music could not start:", err); }
 });
 musicVolume.addEventListener("input", () => {showMusic.volume = Number(musicVolume.value) / 100;});
-showMusic.addEventListener("error", () => {musicOn.checked = false; console.warn("Gameshow audio could not be loaded.");});
+showMusic.addEventListener("error", () => {
+  if (!showMusic.dataset.fallback) {
+    showMusic.dataset.fallback = "true";
+    showMusic.src = "assets/games-night-showtime.wav";
+    if (musicOn.checked) showMusic.play().catch(() => {musicOn.checked = false;});
+  } else { musicOn.checked = false; console.warn("Gameshow audio could not be loaded."); }
+});
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) showMusic.pause();
   else if (musicOn.checked) showMusic.play().catch(() => {musicOn.checked=false;});
@@ -1189,47 +1297,40 @@ let lastPick = -1;
 
 function pickGame() {
   const n = tiles.length;
-  // Prefer reachable games; if everything is still waking, keep the picker usable.
   const reachable = tiles.map((t, i) => t.el.dataset.state === "ready" ? i : -1).filter(i => i >= 0);
   const choices = reachable.length ? reachable : tiles.map((_, i) => i);
   let target;
-  do { target = choices[Math.floor(Math.random() * choices.length)]; }
+  do { target = choices[Math.floor(Math.random()*choices.length)]; }
   while (choices.length > 1 && target === lastPick);
   lastPick = target;
-  tiles.forEach((t) => t.el.classList.remove("lit", "winner"));
   pickBtn.disabled = true;
   pickResult.textContent = "Drumroll…";
 
   const finish = () => {
-    tiles.forEach((t) => t.el.classList.remove("lit"));
-    const win = tiles[target];
-    win.el.classList.add("lit", "winner");
-    win.el.focus({ preventScroll: true });
-    win.el.scrollIntoView({ block: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
-    pickResult.textContent = "Tonight’s pick: " + win.game.name + "!";
+    selectGame(target, true);
+    const winner=tiles[target];
+    winner.el.classList.add("winner");
+    winner.el.scrollIntoView({block:"center",behavior:reduceMotion?"auto":"smooth"});
+    pickResult.textContent = "Tonight’s pick: " + winner.game.name + "!";
     fanfare();
     if (!reduceMotion) {
-      const r = win.el.getBoundingClientRect();
-      burst(r.left + r.width / 2, r.top + r.height / 3, 160);
+      const r=winner.el.getBoundingClientRect();
+      burst(r.left+r.width/2,r.top+r.height/3,160);
     }
-    pickBtn.disabled = false;
-    setTimeout(() => win.el.classList.remove("winner"), 2600);
+    pickBtn.disabled=false;
+    setTimeout(()=>winner.el.classList.remove("winner"),2600);
   };
-
-  if (reduceMotion) { finish(); return; }
-
-  // At least three laps, ending on the target
-  const steps = n * 3 + ((target - (lastLit + 1) + n * 10) % n) + 1;
-  let step = 0;
-  const run = () => {
-    tiles.forEach((t) => t.el.classList.remove("lit"));
-    lastLit = (lastLit + 1) % n;
-    tiles[lastLit].el.classList.add("lit");
+  if(reduceMotion){finish();return;}
+  let step=0, current=selectedGame;
+  const steps=n*3+((target-current+n*10)%n);
+  const run=()=>{
+    current=(current+1)%n;
+    selectGame(current,true);
     tick();
     step++;
-    if (step >= steps) { setTimeout(finish, 350); return; }
-    const progress = step / steps;
-    setTimeout(run, 55 + Math.pow(progress, 3) * 420);
+    if(step>=steps){setTimeout(finish,250);return;}
+    const progress=step/steps;
+    setTimeout(run,45+Math.pow(progress,3)*185);
   };
   run();
 }
@@ -1239,7 +1340,7 @@ pickBtn.addEventListener("click", pickGame);
 /* ---------- Start ---------- */
 wakeAll(false);
 startKeepAwake();
-tiles[0].el.focus({ preventScroll: true });
+/* Selection starts on the first game; leave initial focus to the user. */
 </script>
 </body>
 </html>
