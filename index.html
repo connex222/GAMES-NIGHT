@@ -793,12 +793,38 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
 }
 @media(prefers-reduced-motion:reduce){.game-strip{scroll-behavior:auto}}
 
+
+/* Approved Games Night Logo No. 2 (silver GAMES / gold NIGHT).
+   Image is the user's chosen artwork, cropped to omit the numbered sample badge. */
+.nav-premium-logo {
+  width:clamp(156px,15vw,220px)!important;
+  height:auto!important;
+  max-height:100px!important;
+  object-fit:contain!important;
+  border-radius:8px;
+  filter:drop-shadow(0 0 9px rgba(241,175,76,.3));
+}
+.premium-hero-logo{
+  display:block;
+  width:min(100%,730px)!important;
+  max-height:310px!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  border-radius:16px;
+  filter:drop-shadow(0 8px 24px rgba(23,12,48,.45)) drop-shadow(0 0 12px rgba(255,205,103,.18))!important;
+}
+@media(max-width:760px){
+  .nav-premium-logo{width:150px!important;max-height:86px!important}
+  .premium-hero-logo{width:100%!important;max-height:210px!important}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <nav class="site-nav" aria-label="Game Night navigation">
-    <a class="site-brand" href="#top" aria-label="Game Night home"><img class="nav-premium-logo" src="assets/games-night-aaa-logo.svg" alt="Games Night"></a>
+    <a class="site-brand" href="#top" aria-label="Game Night home"><img class="nav-premium-logo" src="assets/games-night-logo-2.webp" alt="Games Night"></a>
     <div class="site-nav-links">
       <a href="#top" aria-current="page">Home</a>
       <a href="#games">Games</a>
@@ -812,7 +838,7 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
     <div class="marquee">
       <div class="marquee-inner">
         <p class="kicker">Tonight’s line-up</p>
-        <h1 class="visually-hidden">Games Night</h1><img class="premium-hero-logo" src="assets/games-night-aaa-logo.svg" alt="Games Night — The Party Game Collection">
+        <h1 class="visually-hidden">Games Night</h1><img class="premium-hero-logo" src="assets/games-night-logo-2.webp" alt="Games Night — The Party Game Collection">
         <p class="intro">Pick a game. Open it on the TV, then join on your phones.</p>
         <div class="hero-features" aria-label="How Game Night works">
           <span class="hero-feature"><span class="feature-icon" aria-hidden="true">♧</span><span><strong>Play together</strong><small>On your phones</small></span></span>
