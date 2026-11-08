@@ -1,0 +1,2 @@
+# Rollback
+No production change was made. To revert this development build to the original ZIP, use the supplied `GAMES-NIGHT-main(2).zip` as the baseline (do not overwrite newer remote main). For a code-only reversal, restore original `index.html` from that ZIP and remove `assets/visual2/`, `RUN-PREVIEW-WINDOWS.bat` and this new documentation. Backup user files and confirm current remote source before any actual rollback.
