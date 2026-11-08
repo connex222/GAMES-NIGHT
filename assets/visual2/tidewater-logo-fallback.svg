@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-label="Tidewater temporary logo fallback">
+  <defs>
+    <linearGradient id="gold" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#fff2c9"/><stop offset=".42" stop-color="#e7c071"/><stop offset="1" stop-color="#a4702e"/></linearGradient>
+    <linearGradient id="sea" x1="0" x2="1"><stop stop-color="#1597ad"/><stop offset="1" stop-color="#173a62"/></linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#gold)" stroke-width="7" stroke-linejoin="round" opacity=".92">
+    <path d="M478 12 490 56 478 100 466 56Z M430 56h96 M444 22l68 68 M512 22l-68 68"/>
+    <path d="M65 259h830l-30 24H95z"/>
+  </g>
+  <text x="480" y="210" text-anchor="middle" font-family="Georgia,Palatino Linotype,serif" font-weight="bold" letter-spacing="5" font-size="112" fill="#122639" stroke="#081827" stroke-width="12" paint-order="stroke">TIDEWATER</text>
+  <text x="480" y="207" text-anchor="middle" font-family="Georgia,Palatino Linotype,serif" font-weight="bold" letter-spacing="5" font-size="112" fill="url(#gold)">TIDEWATER</text>
+  <path d="M260 232q55-20 110 0t110 0t110 0t110 0" stroke="url(#sea)" fill="none" stroke-width="12"/>
+</svg>

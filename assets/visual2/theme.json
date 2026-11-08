@@ -1,0 +1,21 @@
+{
+  "name": "games-night-premium-v2",
+  "version": "2.0-development",
+  "palette": {
+    "ink": "#080d1d",
+    "navy": "#14264a",
+    "gold": "#d9b46a",
+    "champagne": "#f5d690",
+    "blue": "#2c65b8",
+    "velvet": "#871e38",
+    "pearl": "#f5f1e8",
+    "teal": "#329c9d"
+  },
+  "source": "Approved A-E art batches, 8 November 2026",
+  "assetsRoot": "assets/visual2",
+  "preserve": {
+    "branding": "assets/games-night-logo-2.webp",
+    "audio": "existing controls, Creative Claw URL + fallback WAV",
+    "catalogue": "existing inline GAMES list"
+  }
+}
