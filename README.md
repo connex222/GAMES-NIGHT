@@ -1,34 +1,25 @@
-# GAMES NIGHT
+# Games Night
 
-## Purpose
-A browser-based launcher for choosing a game to open on a TV, with players joining on their phones.
+The launcher for Shaun's TV + phone party games. Open it on the TV, pick a game, and everyone joins on their phones.
 
-## Status
-**Retained — status pending verification.** This repository is not approved for deletion, archiving, merging or renaming.
+**Live site:** https://games-night-wfmz.onrender.com
 
-## How to run
-The repository has a root `index.html` entry point. Download the repository and open this file in a modern browser for a basic preview. Online links and hosting must still be verified.
+## How to use it on a games night
 
-## Maintenance information
-- Default branch: `main`.
-- Live URL and deployment settings: not verified in this documentation pass.
-- Release/acceptance state: not independently verified.
-- Licensing: needs owner review; no reuse licence is implied.
+1. About ten minutes before people arrive, open the live site on the TV.
+2. Open each game you plan to play once, so it wakes up (free hosting sleeps when unused and can take up to a minute).
+3. Pick a game on the TV. Players scan the QR code or type the room code on their phones.
 
-## Safety
-Created on a dedicated documentation review branch. No gameplay, application files, existing workflows, deployment configuration or main branch are changed. Obtain explicit owner approval before any merge, rename, archive or deletion.
+## How it is hosted
 
-## Remaining checks
-- Verify the latest deployed version, if any.
-- Confirm dependencies, setup and automated tests.
-- Record current project ownership and intended status.
+- Render static site, publish path `.`
+- Updates automatically when `main` changes on GitHub
+- Everything is in `index.html`, with artwork in `assets/`
 
-## Render inventory update — 3 November 2026
+## Records
 
-The dashboard was compared against Render's confirmed My Workspace service inventory.
-15 unique games are represented: the existing 12 plus Aether & Deception, The Vault Job and Cyber Cypher.
-The suspended Iron Crown preview service is deliberately excluded.
-Three new original SVG logo treatments are included under `assets/`. These are launcher artwork rather than the games' official identity assets.
+Design and QA records are in `docs/`.
 
-Live site: https://games-night-wfmz.onrender.com
-Deployment: Render static site, publish path `.`, automatic deployment from `main`.
+## For developers and AI assistants
+
+See `CLAUDE.md`, including how to add or remove a game.
