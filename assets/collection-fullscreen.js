@@ -7,7 +7,7 @@
   let autoAttempted = false;
   const style = document.createElement('style');
   style.textContent = `
-    #collection-fullscreen-control{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:2147483000;min-height:44px;padding:10px 14px;border:2px solid rgba(255,255,255,.6);border-radius:10px;background:#14223a;color:#fff;font:700 13px/1.2 system-ui,sans-serif;letter-spacing:.035em;box-shadow:0 4px 18px rgba(0,0,0,.4);cursor:pointer}
+    #collection-fullscreen-control{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:2147483000;min-height:44px;padding:10px 14px;border:2px solid var(--collection-fullscreen-border,rgba(255,255,255,.6));border-radius:10px;background:var(--collection-fullscreen-bg,#14223a);color:var(--collection-fullscreen-color,#fff);font:700 13px/1.2 system-ui,sans-serif;letter-spacing:.035em;box-shadow:0 4px 18px rgba(0,0,0,.4);cursor:pointer}
     #collection-fullscreen-control:focus-visible{outline:3px solid #ffdb58;outline-offset:3px}
     #collection-fullscreen-control:disabled{opacity:.65;cursor:not-allowed}
     #collection-fullscreen-control{box-sizing:border-box;max-width:calc(100vw - 24px);white-space:nowrap}
