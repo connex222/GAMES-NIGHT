@@ -74,6 +74,8 @@
     ];
     const host = slots.find(el => el && getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().width >= 96 && el.getBoundingClientRect().height > 0);
     if (host) {
+      const priorStrip = document.getElementById('collection-fullscreen-strip');
+      if (priorStrip) priorStrip.style.display = 'none';
       if (control.parentElement !== host) host.appendChild(control);
       control.classList.add('collection-fullscreen-docked', 'collection-fullscreen-compact');
       control.style.visibility = '';
