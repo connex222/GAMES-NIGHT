@@ -54,7 +54,7 @@
     if (position) {
       control.classList.remove('collection-fullscreen-docked');
       const staleStrip = document.getElementById('collection-fullscreen-strip');
-      if (staleStrip) staleStrip.hidden = true;
+      if (staleStrip) staleStrip.style.display = 'none';
       if (control.parentElement !== document.body) document.body.appendChild(control);
       control.style.position = 'fixed';
       control.style.visibility = '';
@@ -88,7 +88,7 @@
         strip.style.cssText = 'position:relative;z-index:2147483000;display:flex;justify-content:flex-end;min-height:48px;box-sizing:border-box;padding:2px max(12px,env(safe-area-inset-right)) 2px 8px;background:rgba(9,19,35,.94)';
         document.body.insertBefore(strip, document.body.firstChild);
       }
-      strip.hidden = false;
+      strip.style.display = 'flex';
       if (control.parentElement !== strip) strip.appendChild(control);
       control.classList.add('collection-fullscreen-docked', 'collection-fullscreen-compact');
       control.style.visibility = '';
