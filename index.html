@@ -868,7 +868,7 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
     <h2>Featured games</h2>
     <span id="gameCount">18 games in the collection</span>
   </div>
-  <div class="game-chooser" aria-label="Choose from all 16 games">
+  <div class="game-chooser" aria-label="Choose from all 18 games">
     <div class="chooser-heading"><strong>CHOOSE A GAME</strong><span>All 18 games · scroll sideways to see more</span></div>
     <div class="game-chooser-row">
       <button type="button" class="strip-arrow" id="stripPrev" aria-label="Scroll game names left">‹</button>
@@ -902,10 +902,35 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
    motif   : hex | dice | bang | spark | quiz | spade | cards
    ========================================================= */
 const GAMES = [
-  { style: "ragnagrok", name: "RAGNAGROK", url: "https://ragnagrok-2.onrender.com",
-    tagline: "The Last Garden Show",
-    desc: "The Norse apocalypse reaches a very English garden show. Secretly plan on your phone, compete across a 19-hex garden, and chase the Golden Flamingo before the neighbourhood goes up in flames.",
-    play: "One TV and 2 to 8 phones", motif: "none", logo: "ragnagrok" },
+  { style: "aether", name: "Aether & Deception", url: "https://aether-deception.onrender.com",
+    tagline: "Secrets beneath the brass and steam",
+    desc: "A steampunk social-deduction game where hidden loyalties, curious inventions and clever bluffing decide the night. Follow the unfolding mystery on the TV while each player makes private choices on their phone.",
+    play: "One TV and 5 to 10 phones", motif: "none", logo: "aether" },
+
+  { style: "cyber", name: "Cyber Cypher", url: "https://cyber-cypher-j2ry.onrender.com",
+    tagline: "Trust no signal. Crack every code.",
+    desc: "A cyberpunk word-spy battle on a shared 5 × 5 grid. Give one-word clues, find your crew’s agents and avoid the devastating Zero Day.",
+    play: "One TV and 2 to 10 phones", motif: "none", logo: "cyber" },
+
+  { style: "ecky", name: "Ecky Thump", url: "https://ecky-thump.onrender.com",
+    tagline: "The Social Club",
+    desc: "Five ways to cause mayhem: Card Clash, Quick Wit, Context Collapse, Double Trouble and The Last Laugh. Write outrageous answers, vote for the funniest and let the Northern host run the show.",
+    play: "3 to 12 invited players · phones, with an optional TV", motif: "none", logo: "ecky" },
+
+  { style: "fivecrowns", name: "Five Crowns", url: "https://five-crowns-7225.onrender.com",
+    tagline: "A royal table awaits",
+    desc: "Gather around a shared TV playing table with premium tiles and Noble House characters. Follow the action on the big screen while you play using your phone.",
+    play: "One TV and phones", motif: "none", logo: "fivecrowns" },
+
+  { style: "forgers", name: "Forger's Finger", url: "https://forgers-fingers-1.onrender.com",
+    tagline: "Trust the evidence. Question the forger.",
+    desc: "Draw terrible masterpieces, disguise convincing forgeries and gamble your guineas in a lively gallery auction. The TV reveals the art; phones are brushes and bidding paddles.",
+    play: "One TV and 3 to 8 phones · Family or After Hours", motif: "none", logo: "forgers" },
+
+  { style: "gilded", name: "Gilded Five", url: "https://gilded-five-phone.onrender.com",
+    tagline: "All that glitters rolls.",
+    desc: "Roll five dice, hold the best and fill your scorecard on the green-felt table. Bet chips on other players’ turns, play house-rule cards, and roll a Gilded Five to scoop the jackpot. Learner and Junior seats help younger players.",
+    play: "One TV and phones, 1 to 8 players", motif: "none", logo: "gilded" },
 
   { style: "iron", name: "Iron Crown", url: "https://iron-crown-main.onrender.com",
     tagline: "A Victorian railway empire",
@@ -913,41 +938,15 @@ const GAMES = [
     pills: ["Quick · 8 rounds", "Standard · 12 rounds", "Advanced · events & perks"],
     play: "One TV and 2 to 8 phones", motif: "none", logo: "iron", faces: "iron" },
 
-  { style: "starfall", name: "Starfall Lanes", url: "https://starfall-lanes-1.onrender.com/tv.html",
-    tagline: "Claim worlds, open hyperlanes, outrun the Solar Storm.",
-    desc: "A space-colony strategy game on a star map across the TV. Command your colony from your phone, complete missions and be first to 15 Influence to become Warden of the Cluster. Bots can fill empty seats or take over if someone drops out.",
-    play: "One TV and 2 to 8 phones", motif: "none", logo: "starfall", faces: "starfall" },
-
-  { style: "tidewater", name: "Tidewater", url: "https://tidewater-gz69.onrender.com",
-    tagline: "Take command of the seas",
-    desc: "A naval strategy game centred on a shared sea chart. Watch the action unfold on the TV and make your decisions from your phone.",
-    play: "One TV and phones", motif: "none", logo: "tidewater" },
-
-  { style: "fivecrowns", name: "Five Crowns", url: "https://five-crowns-7225.onrender.com",
-    tagline: "A royal table awaits",
-    desc: "Gather around a shared TV playing table with premium tiles and Noble House characters. Follow the action on the big screen while you play using your phone.",
-    play: "One TV and phones", motif: "none", logo: "fivecrowns" },
-
-  { style: "gilded", name: "Gilded Five", url: "https://gilded-five-phone.onrender.com",
-    tagline: "All that glitters rolls.",
-    desc: "Roll five dice, hold the best and fill your scorecard on the green-felt table. Bet chips on other players’ turns, play house-rule cards, and roll a Gilded Five to scoop the jackpot. Learner and Junior seats help younger players.",
-    play: "One TV and phones, 1 to 8 players", motif: "none", logo: "gilded" },
-
-  { style: "ecky", name: "Ecky Thump", url: "https://ecky-thump.onrender.com",
-    tagline: "The Social Club",
-    desc: "Five ways to cause mayhem: Card Clash, Quick Wit, Context Collapse, Double Trouble and The Last Laugh. Write outrageous answers, vote for the funniest and let the Northern host run the show.",
-    play: "3 to 12 invited players · phones, with an optional TV", motif: "none", logo: "ecky" },
+  { style: "lastcard", name: "Last Card", url: "https://last-card-kdjt.onrender.com",
+    tagline: "A colour-matching party card game",
+    desc: "Match the colour or the number and race to empty your hand. The TV shows the table and every phone is a private hand, so nobody can peek.",
+    play: "One TV and up to 10 phones", motif: "none", logo: "lastcard" },
 
   { style: "noggin", name: "NOGGIN", url: "https://noggin-0u32.onrender.com/tv/",
     tagline: "Quick brains. Big laughs.",
     desc: "The living-room game show: roll round a 28-space board, take on seven party-game libraries and corner Showdowns, then win the Sparks in Last Orders.",
     play: "One TV and 2 to 8 phones", motif: "none", logo: "noggin" },
-
-  { style: "smartalec", name: "Smart Alec", url: "https://smart-alec.onrender.com/tv/",
-    tagline: "Big questions. Smart moves. Even bigger laughs.",
-    desc: "An irreverent TV quiz show on a 64-space board. Answer across six categories, win the tokens and take on a 60-second final. Mini-games and Showdowns keep the whole room involved.",
-    play: "One TV and 2 to 8 phones", motif: "none", logo: "smartalec",
-    cover: "assets/visual2/featured/backgrounds/featured-scene-smartalec-1600x900.webp" },
 
   { style: "oche", name: "OCHE", url: "https://oche-master.onrender.com/tv",
     tagline: "Your darts night. Your big-screen board.",
@@ -960,11 +959,16 @@ const GAMES = [
     desc: "A proper quiz night, with teams answering on their phones. Play Classic Pub Quiz, where every right answer scores the same, or TV Game Show, with speed bonuses and first-to-buzz rounds.",
     play: "TV and phones, play in teams", motif: "none", logo: "quiz" },
 
-  { style: "deck", name: "The Gilded Deck", url: "https://gilded-deck.onrender.com",
-    tagline: "The night is yours.",
-    desc: "A private card room on the TV, with your cards kept hidden on your phone. Pick one of 16 characters, choose a game for the table and play for chips, never real money.",
-    pills: ["♠ Texas Hold’em", "♦ Omaha", "♣ Five-Card Draw", "♥ Blackjack", "♦ Three-Card Brag"],
-    play: "One TV and phones, 2 or more players", motif: "none", logo: "deck", faces: "deck" },
+  { style: "ragnagrok", name: "RAGNAGROK", url: "https://ragnagrok-2.onrender.com",
+    tagline: "The Last Garden Show",
+    desc: "The Norse apocalypse reaches a very English garden show. Secretly plan on your phone, compete across a 19-hex garden, and chase the Golden Flamingo before the neighbourhood goes up in flames.",
+    play: "One TV and 2 to 8 phones", motif: "none", logo: "ragnagrok" },
+
+  { style: "smartalec", name: "Smart Alec", url: "https://smart-alec.onrender.com/tv/",
+    tagline: "Big questions. Smart moves. Even bigger laughs.",
+    desc: "An irreverent TV quiz show on a 64-space board. Answer across six categories, win the tokens and take on a 60-second final. Mini-games and Showdowns keep the whole room involved.",
+    play: "One TV and 2 to 8 phones", motif: "none", logo: "smartalec",
+    cover: "assets/visual2/featured/backgrounds/featured-scene-smartalec-1600x900.webp" },
 
   { style: "stack", name: "Stackhouse Social", url: "https://stackhouse-m50w.onrender.com",
     tagline: "Your table awaits",
@@ -972,30 +976,27 @@ const GAMES = [
     pills: ["Stack Run", "Phase Quest", "Tile Royale", "Low Glow", "Eight Shift", "+5 more"],
     play: "Solo with bots or private tables of 2 to 6 · optional TV spectator", motif: "none", logo: "stack", faces: "stack" },
 
-  { style: "lastcard", name: "Last Card", url: "https://last-card-kdjt.onrender.com",
-    tagline: "A colour-matching party card game",
-    desc: "Match the colour or the number and race to empty your hand. The TV shows the table and every phone is a private hand, so nobody can peek.",
-    play: "One TV and up to 10 phones", motif: "none", logo: "lastcard" },
+  { style: "starfall", name: "Starfall Lanes", url: "https://starfall-lanes-1.onrender.com/tv.html",
+    tagline: "Claim worlds, open hyperlanes, outrun the Solar Storm.",
+    desc: "A space-colony strategy game on a star map across the TV. Command your colony from your phone, complete missions and be first to 15 Influence to become Warden of the Cluster. Bots can fill empty seats or take over if someone drops out.",
+    play: "One TV and 2 to 8 phones", motif: "none", logo: "starfall", faces: "starfall" },
 
-  { style: "aether", name: "Aether & Deception", url: "https://aether-deception.onrender.com",
-    tagline: "Secrets beneath the brass and steam",
-    desc: "A steampunk social-deduction game where hidden loyalties, curious inventions and clever bluffing decide the night. Follow the unfolding mystery on the TV while each player makes private choices on their phone.",
-    play: "One TV and 5 to 10 phones", motif: "none", logo: "aether" },
+  { style: "deck", name: "The Gilded Deck", url: "https://gilded-deck.onrender.com",
+    tagline: "The night is yours.",
+    desc: "A private card room on the TV, with your cards kept hidden on your phone. Pick one of 16 characters, choose a game for the table and play for chips, never real money.",
+    pills: ["♠ Texas Hold’em", "♦ Omaha", "♣ Five-Card Draw", "♥ Blackjack", "♦ Three-Card Brag"],
+    play: "One TV and phones, 2 or more players", motif: "none", logo: "deck", faces: "deck" },
 
   { style: "vault", name: "The Vault Job", url: "https://the-vault-job.onrender.com",
     tagline: "One crew. One vault. Plenty of trouble.",
     desc: "A Victorian-inspired heist party game. Gather your crew, outwit the opposition and chase a daring score through a world of brass, intrigue and criminal ambition.",
     play: "TV and phones", motif: "none", logo: "vault" },
 
-  { style: "forgers", name: "Forger's Finger", url: "https://forgers-fingers-1.onrender.com",
-    tagline: "Trust the evidence. Question the forger.",
-    desc: "Draw terrible masterpieces, disguise convincing forgeries and gamble your guineas in a lively gallery auction. The TV reveals the art; phones are brushes and bidding paddles.",
-    play: "One TV and 3 to 8 phones · Family or After Hours", motif: "none", logo: "forgers" },
+  { style: "tidewater", name: "Tidewater", url: "https://tidewater-gz69.onrender.com",
+    tagline: "Take command of the seas",
+    desc: "A naval strategy game centred on a shared sea chart. Watch the action unfold on the TV and make your decisions from your phone.",
+    play: "One TV and phones", motif: "none", logo: "tidewater" },
 
-  { style: "cyber", name: "Cyber Cypher", url: "https://cyber-cypher-j2ry.onrender.com",
-    tagline: "Trust no signal. Crack every code.",
-    desc: "A cyberpunk word-spy battle on a shared 5 × 5 grid. Give one-word clues, find your crew’s agents and avoid the devastating Zero Day.",
-    play: "One TV and 2 to 10 phones", motif: "none", logo: "cyber" },
 ];
 
 /* ---------- Line drawings for each tile ---------- */
@@ -1020,7 +1021,7 @@ const FACES = {
 /* Official logos, packed in so the page works offline */
 const LOGOS = {
   smartalec: "assets/smart-alec-logo.webp",
-  oche: "assets/oche-logo.png",
+  oche: "assets/oche-numbered-crest.jpg",
   forgers: "assets/forgers-finger-logo.svg",
   aether: "assets/aether-logo.svg",
   vault: "assets/vault-logo.svg",
