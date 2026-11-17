@@ -819,6 +819,15 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
   .premium-hero-logo{width:100%!important;max-height:210px!important}
 }
 
+/* Brand styling for the two new TV-and-phone games. */
+.g-smartalec { --glow:#ffca56; background:linear-gradient(130deg,#2b1849,#392266 60%,#171a42); border-color:#f6bb41; color:#fff2e6; }
+.g-smartalec .tagline { color:#ffda72; font-weight:800; }
+.g-smartalec .desc,.g-smartalec .play { color:#f1e7ff; }
+.g-oche { --glow:#e2b459; background:linear-gradient(130deg,#171b17,#27342c 60%,#20140f); border-color:#c99c41; color:#fff5e8; }
+.g-oche .tagline { color:#f4ce84; font-weight:800; }
+.g-oche .desc,.g-oche .play { color:#e5e9df; }
+.g-smartalec .logo,.g-oche .logo { display:block; max-width:100%; height:auto; object-fit:contain; }
+
 </style>
 <link rel="stylesheet" href="assets/visual2/visual2.css">
 </head>
@@ -857,10 +866,10 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
 
   <div class="games-heading" id="games">
     <h2>Featured games</h2>
-    <span id="gameCount">16 games in the collection</span>
+    <span id="gameCount">18 games in the collection</span>
   </div>
   <div class="game-chooser" aria-label="Choose from all 16 games">
-    <div class="chooser-heading"><strong>CHOOSE A GAME</strong><span>All 16 games · scroll sideways to see more</span></div>
+    <div class="chooser-heading"><strong>CHOOSE A GAME</strong><span>All 18 games · scroll sideways to see more</span></div>
     <div class="game-chooser-row">
       <button type="button" class="strip-arrow" id="stripPrev" aria-label="Scroll game names left">‹</button>
       <div class="game-strip" id="gameStrip" role="group" aria-label="Select a game to preview"></div>
@@ -934,6 +943,18 @@ const GAMES = [
     desc: "The living-room game show: roll round a 28-space board, take on seven party-game libraries and corner Showdowns, then win the Sparks in Last Orders.",
     play: "One TV and 2 to 8 phones", motif: "none", logo: "noggin" },
 
+  { style: "smartalec", name: "Smart Alec", url: "https://smart-alec.onrender.com/tv/",
+    tagline: "Big questions. Smart moves. Even bigger laughs.",
+    desc: "An irreverent TV quiz show on a 64-space board. Answer across six categories, win the tokens and take on a 60-second final. Mini-games and Showdowns keep the whole room involved.",
+    play: "One TV and 2 to 8 phones", motif: "none", logo: "smartalec",
+    cover: "assets/visual2/featured/backgrounds/featured-scene-smartalec-1600x900.webp" },
+
+  { style: "oche", name: "OCHE", url: "https://oche-master.onrender.com/tv",
+    tagline: "Your darts night. Your big-screen board.",
+    desc: "Turn your living room into a darts night with a full-size TV board and phones as controllers. Throw with a motion flick or touchscreen swipe, with 501, Cricket, Shanghai and more.",
+    play: "One TV and 1 to 8 phones", motif: "none", logo: "oche",
+    cover: "assets/visual2/featured/backgrounds/featured-scene-oche-1600x900.jpg" },
+
   { style: "quiz", name: "Pub Quiz Powerhouse", url: "https://pub-quiz-powerhouse.onrender.com",
     tagline: "The ultimate pub quiz experience",
     desc: "A proper quiz night, with teams answering on their phones. Play Classic Pub Quiz, where every right answer scores the same, or TV Game Show, with speed bonuses and first-to-buzz rounds.",
@@ -998,6 +1019,8 @@ const FACES = {
 
 /* Official logos, packed in so the page works offline */
 const LOGOS = {
+  smartalec: "assets/smart-alec-logo.webp",
+  oche: "assets/oche-logo.png",
   forgers: "assets/forgers-finger-logo.svg",
   aether: "assets/aether-logo.svg",
   vault: "assets/vault-logo.svg",
@@ -1112,7 +1135,8 @@ const tiles = GAMES.map((g) => {
   const visualCover = document.createElement("div");
   visualCover.className = "v2-feature-cover";
   // An inline background URL resolves against index.html (also works when opened locally).
-  visualCover.style.backgroundImage = 'linear-gradient(180deg, rgba(7,12,23,.04) 20%, rgba(5,10,22,.68) 75%, rgba(5,9,21,.96)), url("assets/visual2/featured/backgrounds/featured-scene-' + g.style + '-1600x900.webp")';
+  const coverPath = g.cover || 'assets/visual2/featured/backgrounds/featured-scene-' + g.style + '-1600x900.webp';
+  visualCover.style.backgroundImage = 'linear-gradient(180deg, rgba(7,12,23,.04) 20%, rgba(5,10,22,.68) 75%, rgba(5,9,21,.96)), url("' + coverPath + '")';
   visualCover.appendChild(nameEl);
   const visualCopy = document.createElement("div");
   visualCopy.className = "v2-feature-copy";
