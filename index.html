@@ -184,8 +184,8 @@
     padding: 0.35rem 0.85rem 0.35rem 0.7rem; border-radius: 999px;
     background: rgba(0, 0, 0, 0.32); color: #FFFFFF; font-family: var(--body); font-size: 0.9em; font-weight: 600;
   }
-  .dot { width: 0.75em; height: 0.75em; border-radius: 50%; background: #F5B83D; box-shadow: 0 0 0 2px rgba(255,255,255,0.6); }
-  .game[data-state="waking"] .dot { animation: pulse 1.2s ease-in-out infinite; }
+  .dot { width: 0.75em; height: 0.75em; border-radius: 50%; background: #A7AFBF; box-shadow: 0 0 0 2px rgba(255,255,255,0.6); }
+  .game[data-state="waking"] .dot { background: #F5B83D; animation: pulse 1.2s ease-in-out infinite; }
   .game[data-state="ready"] .dot { background: #4BD37B; }
   .game[data-state="down"] .dot { background: #FF5A5A; }
   @keyframes pulse { 50% { opacity: 0.25; } }
@@ -828,6 +828,64 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
 .g-oche .desc,.g-oche .play { color:#e5e9df; }
 .g-smartalec .logo,.g-oche .logo { display:block; max-width:100%; height:auto; object-fit:contain; }
 
+/* Wake control / status panel — uses the approved Visual2 navy, gold and cream. */
+.wake-elapsed { margin:0; text-align:center; color:#f7e6c1; font-size:.95rem; font-variant-numeric:tabular-nums; }
+.wake-detail-link { color:#ffe3a1; text-align:center; min-height:44px; display:flex; align-items:center; justify-content:center; text-decoration:underline; text-underline-offset:4px; font-weight:650; }
+.wake-detail-link:focus-visible { outline:3px solid #ffeaaa; outline-offset:3px; }
+button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
+.game-name-button .strip-state {
+  position:absolute; top:5px; right:5px; z-index:3;
+  width:20px; height:20px; display:grid; place-items:center;
+  border-radius:50%; background:rgba(5,12,28,.9);
+  box-shadow:0 0 0 1px rgba(255,230,177,.45);
+}
+.game-name-button .strip-dot, .wake-entry .wake-dot {
+  display:inline-block; flex:none; width:12px; height:12px;
+  border-radius:50%; background:#A7AFBF; box-shadow:0 0 0 1px #e8e8ee;
+}
+.game-name-button[data-state="waking"] .strip-dot,
+.wake-entry[data-state="waking"] .wake-dot { background:#ffc24d; animation:pulse 1.2s ease-in-out infinite; }
+.game-name-button[data-state="ready"] .strip-dot,
+.wake-entry[data-state="ready"] .wake-dot { background:#58db85; }
+.game-name-button[data-state="down"] .strip-dot,
+.wake-entry[data-state="down"] .wake-dot { background:#ff6868; }
+.wake-board {
+  margin-top:14px; padding:12px clamp(12px,2vw,22px);
+  background:linear-gradient(130deg,rgba(8,18,41,.97),rgba(20,34,58,.96));
+  border:1px solid rgba(233,189,107,.72); border-radius:16px;
+  color:#f7f0de; box-shadow:0 12px 30px rgba(0,0,0,.32);
+}
+.wake-board > summary {
+  cursor:pointer; min-height:44px; display:flex; flex-wrap:wrap;
+  align-items:center; gap:8px 16px; padding:5px 2px;
+  color:#ffe5aa; font-weight:750; font-size:1.05rem;
+}
+.wake-board > summary:focus-visible { outline:3px solid #ffeaaa; outline-offset:4px; }
+.wake-board-hint { color:#d7d5dc; font-size:.87rem; font-weight:500; }
+.wake-list {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));
+  gap:9px; padding:10px 0 4px;
+}
+.wake-entry {
+  min-width:0; min-height:56px; display:flex; flex-wrap:wrap;
+  justify-content:space-between; align-items:center; gap:8px 12px;
+  padding:9px 12px; border:1px solid rgba(238,195,114,.34);
+  border-radius:10px; background:rgba(5,12,28,.72);
+}
+.wake-entry-name { min-width:0; flex:1 1 9rem; overflow-wrap:anywhere; font-size:.94rem; }
+.wake-entry-meta { display:inline-flex; align-items:center; gap:9px; color:#f3e9d9; font-size:.9rem; white-space:nowrap; }
+.wake-retry {
+  min-height:44px; min-width:72px; padding:8px 13px; border-radius:9px;
+  border:2px solid #f4d38e; background:#20365a; color:#fff4d5;
+  font:700 .95rem system-ui,sans-serif; cursor:pointer;
+}
+.wake-retry:hover { background:#33517b; }
+.wake-retry:focus-visible { outline:3px solid #ffeaaa; outline-offset:3px; }
+.wake-retry[hidden] { display:none; }
+@media (prefers-reduced-motion:reduce) {
+  .game-name-button[data-state="waking"] .strip-dot,
+  .wake-entry[data-state="waking"] .wake-dot { animation:none; }
+}
 </style>
 <link rel="stylesheet" href="assets/visual2/visual2.css">
 </head>
@@ -858,7 +916,10 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
       </div>
     </div>
     <div class="side" data-status="checking">
-      <p class="summary" id="summary" role="status" aria-live="polite">Checking game servers…</p>
+      <p class="summary" id="summary" role="status" aria-live="polite">0 of 20 awake</p>
+      <p class="wake-elapsed" id="wakeElapsed" aria-live="off">Elapsed: 0:00</p>
+      <button class="wake" id="wakeAll" type="button">Wake all games</button>
+      <a class="wake-detail-link" href="#wake-status">View all statuses and retry failures</a>
       <button class="spin" id="pickBtn" type="button"><span aria-hidden="true">🎲</span><span>Pick a game</span><span class="button-arrow" aria-hidden="true">→</span></button>
       <p class="pick-result" id="pickResult" aria-live="polite"></p>
     </div>
@@ -880,18 +941,50 @@ header.top {height:auto!important; min-height:0!important; padding:18px 22px!imp
   <ul class="grid featured-grid" id="grid" aria-label="Selected game — full preview"></ul>
   <canvas id="confetti" aria-hidden="true"></canvas>
 
-  <section class="controls" id="how-it-works" aria-label="Keeping games awake">
-    <p>Free hosting puts each game to sleep after 15 minutes with no visitors, and the first load can take up to a minute. While this page is open, it wakes every game and keeps them awake.</p>
-    <label class="toggle"><input type="checkbox" id="keepAwake" checked> Keep games awake</label>
+  <section class="controls" id="how-it-works" aria-label="Game night controls">
+    <p>Free hosting may take around a minute to wake. Press <strong>Wake all games</strong> before playing. Optionally keep the servers awake every 10 minutes while this page stays open.</p>
+    <label class="toggle"><input type="checkbox" id="keepAwake"> Keep games awake</label>
     <label class="toggle"><input type="checkbox" id="soundOn" checked> Sounds</label>
     <label class="toggle"><input type="checkbox" id="musicOn"> Gameshow music</label>
     <label class="music-volume">Volume <input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="32"></label>
     <audio id="showMusic" src="https://cdn.creativeclaw.co/u/f3e7a3b1/audio/4c02b176-0403-4a40-bd6f-8f750e1e0648.mp3" preload="none" loop></audio>
-    <button class="wake" id="wakeAll" type="button">Wake all now</button>
   </section>
+  <details class="wake-board" id="wake-status">
+    <summary>All 20 game servers <span class="wake-board-hint">See results and retry failures</span></summary>
+    <div class="wake-list" id="wakeList" aria-label="Per-game wake-up results"></div>
+  </details>
 </div>
 
 <script>
+/* =========================================================
+   WAKE-UP TARGETS — EDIT ALL 20 SERVICE URLS HERE.
+   "style" connects a wake result to an existing catalogue tile; null means
+   the service is tracked in the status panel but is not a catalogue tile.
+   These are ping targets, NOT game launch links.
+   ========================================================= */
+const WAKE_SERVICES = [
+  { name: "Dice Games",          style: null,         url: "https://dice-games-jx57.onrender.com/" },
+  { name: "Smart Alec",          style: "smartalec",  url: "https://smart-alec-w100.onrender.com/health" },
+  { name: "OCHE",                style: "oche",       url: "https://oche-master.onrender.com/" },
+  { name: "Marble Rush",         style: null,         url: "https://marble-rush.onrender.com/" },
+  { name: "Forger's Finger",     style: "forgers",    url: "https://forgers-fingers-1.onrender.com/" },
+  { name: "Cyber Cypher",        style: "cyber",      url: "https://cyber-cypher-j2ry.onrender.com/healthz" },
+  { name: "The Vault Job",       style: "vault",      url: "https://the-vault-job.onrender.com/healthz" },
+  { name: "Aether & Deception",  style: "aether",     url: "https://aether-deception.onrender.com/health" },
+  { name: "Iron Crown",          style: "iron",       url: "https://iron-crown-main.onrender.com/health" },
+  { name: "Starfall Lanes",      style: "starfall",   url: "https://starfall-lanes-1.onrender.com/health" },
+  { name: "Five Crowns",         style: "fivecrowns", url: "https://five-crowns-7225.onrender.com/healthz" },
+  { name: "RAGNAGROK",           style: "ragnagrok",  url: "https://ragnagrok-2.onrender.com/healthz" },
+  { name: "Tidewater",           style: "tidewater",  url: "https://tidewater-gz69.onrender.com/health" },
+  { name: "Stackhouse Social",   style: "stack",      url: "https://stackhouse-m50w.onrender.com/health" },
+  { name: "The Gilded Deck",     style: "deck",       url: "https://gilded-deck.onrender.com/health" },
+  { name: "Last Card",           style: "lastcard",   url: "https://last-card-kdjt.onrender.com/healthz" },
+  { name: "Gilded Five",         style: "gilded",     url: "https://gilded-five-phone.onrender.com/health" },
+  { name: "Ecky Thump",          style: "ecky",       url: "https://ecky-thump.onrender.com/api/health" },
+  { name: "NOGGIN",              style: "noggin",     url: "https://noggin-0u32.onrender.com/health" },
+  { name: "Pub Quiz Powerhouse", style: "quiz",       url: "https://pub-quiz-powerhouse.onrender.com/healthz" }
+];
+
 /* =========================================================
    EDIT YOUR GAMES HERE
    style   : which look to use (matches a .g-xxx block in the CSS)
@@ -1046,8 +1139,16 @@ const summary = document.getElementById("summary");
 const keepAwake = document.getElementById("keepAwake");
 const wakeAllBtn = document.getElementById("wakeAll");
 
-const WAKE_TIMEOUT_MS = 120000;         // give a sleeping game up to 2 minutes
-const KEEP_AWAKE_EVERY_MS = 10 * 60000; // re-ping every 10 minutes
+const WAKE_TIMEOUT_MS = 90 * 1000;       // each server gets 90 seconds
+const KEEP_AWAKE_EVERY_MS = 10 * 60000; // optional re-ping every 10 minutes
+const wakeElapsed = document.getElementById("wakeElapsed");
+const wakeStatusDetails = document.getElementById("wake-status");
+const wakeStatusList = document.getElementById("wakeList");
+const services = WAKE_SERVICES.map((target) => ({
+  ...target, state: "idle", inFlight: null, tile: null,
+  row: null, rowLabel: null, retryBtn: null, stripBtn: null
+}));
+const serviceByStyle = new Map(services.filter((service) => service.style).map((service) => [service.style, service]));
 
 /* ---------- Build the tiles ---------- */
 const tiles = GAMES.map((g) => {
@@ -1055,14 +1156,14 @@ const tiles = GAMES.map((g) => {
   const a = document.createElement("a");
   a.className = "game g-" + g.style;
   a.href = g.url;
-  a.dataset.state = "waking";
+  a.dataset.state = "idle";
   a.innerHTML =
     '<svg class="motif" viewBox="0 0 100 100" aria-hidden="true">' + (MOTIFS[g.motif] || MOTIFS.spark) + "</svg>" +
     '<h2 class="name"></h2>' +
     '<p class="tagline"></p>' +
     '<p class="desc"></p>' +
     '<p class="play"></p>' +
-    '<span class="status"><span class="dot" aria-hidden="true"></span><span class="label">Waking up…</span></span>' +
+    '<span class="status"><span class="dot" aria-hidden="true"></span><span class="label">Not checked</span></span>' +
     '<span class="launch-action">▶ OPEN GAME <span aria-hidden="true">→</span></span>';
   const nameEl = a.querySelector(".name");
   if (g.motif === "none") a.querySelector(".motif").remove();
@@ -1152,67 +1253,151 @@ const tiles = GAMES.map((g) => {
   a.appendChild(visualLayout);
   li.appendChild(a);
   grid.appendChild(li);
-  return { game: g, el: a, label: a.querySelector(".label"), started: 0, timer: null };
+  return { game: g, el: a, label: a.querySelector(".label"), service: serviceByStyle.get(g.style) || null };
 });
 
-/* ---------- Status helpers ---------- */
-function setState(t, state) {
-  t.el.dataset.state = state;
-  clearInterval(t.timer);
-  t.timer = null;
-  if (state === "waking") {
-    t.started = Date.now();
-    t.label.textContent = "Waking up…";
-    t.timer = setInterval(() => {
-      const s = Math.round((Date.now() - t.started) / 1000);
-      t.label.textContent = s < 3 ? "Waking up…" : "Waking up… " + s + "s";
-    }, 1000);
-  } else if (state === "ready") {
-    t.label.textContent = "Server responding";
-  } else {
-    t.label.textContent = "Not responding, select to try";
+/* ---------- Per-service status, elapsed time and independent retry ---------- */
+const STATUS_TEXT = { idle: "Not checked", waking: "Waking…", ready: "Awake", down: "Failed" };
+let wakeStartedAt = 0;
+let wakeClock = null;
+let bulkWaking = false;
+
+tiles.forEach((tile) => { if (tile.service) tile.service.tile = tile; });
+services.forEach((service) => {
+  const row = document.createElement("div");
+  row.className = "wake-entry";
+  row.dataset.state = "idle";
+  const name = document.createElement("strong");
+  name.className = "wake-entry-name";
+  name.textContent = service.name;
+  const meta = document.createElement("span");
+  meta.className = "wake-entry-meta";
+  const dot = document.createElement("span");
+  dot.className = "wake-dot";
+  dot.setAttribute("aria-hidden", "true");
+  const label = document.createElement("span");
+  label.textContent = "Not checked";
+  meta.append(dot, label);
+  const retry = document.createElement("button");
+  retry.type = "button";
+  retry.className = "wake-retry";
+  retry.textContent = "Retry";
+  retry.setAttribute("aria-label", "Retry waking " + service.name);
+  retry.hidden = true;
+  retry.addEventListener("click", () => retryService(service));
+  row.append(name, meta, retry);
+  wakeStatusList.appendChild(row);
+  service.row = row;
+  service.rowLabel = label;
+  service.retryBtn = retry;
+});
+
+function updateSummary() {
+  const awake = services.filter((service) => service.state === "ready").length;
+  const failed = services.filter((service) => service.state === "down").length;
+  summary.textContent = awake + " of " + services.length + " awake" + (failed ? " · " + failed + " failed" : "");
+  summary.closest(".side").dataset.status = awake > 0 ? "ready" : failed === services.length ? "down" : "checking";
+}
+function setServiceState(service, state) {
+  service.state = state;
+  service.row.dataset.state = state;
+  service.rowLabel.textContent = STATUS_TEXT[state];
+  service.retryBtn.hidden = state !== "down";
+  if (service.tile) {
+    service.tile.el.dataset.state = state;
+    service.tile.label.textContent = STATUS_TEXT[state];
+  }
+  if (service.stripBtn) {
+    service.stripBtn.dataset.state = state;
+    service.stripBtn.setAttribute("aria-label", "Preview " + service.name + ". Server status: " + STATUS_TEXT[state]);
+    service.stripBtn.querySelector(".strip-state-label").textContent = STATUS_TEXT[state];
   }
   updateSummary();
 }
-
-function updateSummary() {
-  const total = tiles.length;
-  const ready = tiles.filter((t) => t.el.dataset.state === "ready").length;
-  const down = tiles.filter((t) => t.el.dataset.state === "down").length;
-  if (ready === total) summary.textContent = "All " + total + " games responding";
-  else if (down && ready + down === total) summary.textContent = ready + " of " + total + " responding, " + down + " not responding";
-  else summary.textContent = ready + " of " + total + " games responding";
-  summary.closest(".side").dataset.status = ready > 0 ? "ready" : down === total ? "down" : "checking";
+function updateElapsed() {
+  const seconds = wakeStartedAt ? Math.floor((Date.now() - wakeStartedAt) / 1000) : 0;
+  wakeElapsed.textContent = "Elapsed: " + Math.floor(seconds / 60) + ":" + String(seconds % 60).padStart(2, "0");
+}
+function startWakeClock() {
+  wakeStartedAt = Date.now();
+  clearInterval(wakeClock);
+  wakeClock = setInterval(updateElapsed, 1000);
+  updateElapsed();
+}
+function refreshWakeButton() {
+  wakeAllBtn.disabled = bulkWaking || services.some((service) => service.inFlight);
+}
+function finishWakeIfIdle() {
+  if (services.some((service) => service.inFlight)) return;
+  clearInterval(wakeClock);
+  wakeClock = null;
+  updateElapsed();
+  if (services.some((service) => service.state === "down")) wakeStatusDetails.open = true;
 }
 
-/* ---------- Wake one game ----------
-   A "no-cors" request reaches the game's server and starts it if it's asleep.
-   The browser can't read the reply, but the request finishing means the
-   server answered. */
-async function wake(t, quiet) {
-  if (!quiet) setState(t, "waking");
-  const ctrl = new AbortController();
-  const abort = setTimeout(() => ctrl.abort(), WAKE_TIMEOUT_MS);
-  try {
-    await fetch(new URL(t.game.url).origin + "/?wake=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctrl.signal });
-    setState(t, "ready");
-  } catch (e) {
-    setState(t, "down");
-  } finally {
-    clearTimeout(abort);
-  }
+/* no-cors responses are opaque: completion confirms a network reply, not a 2xx
+   HTTP status or full application readiness. The browser cannot inspect either. */
+function wakeService(service, quiet = false) {
+  if (service.inFlight) return service.inFlight;
+  if (!quiet) setServiceState(service, "waking");
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), WAKE_TIMEOUT_MS);
+  const url = new URL(service.url);
+  url.searchParams.set("_wake", String(Date.now())); // bypass intermediary caches
+  const request = fetch(url.href, {
+    method: "GET", mode: "no-cors", cache: "no-store", signal: controller.signal
+  }).then(() => {
+    setServiceState(service, "ready");
+  }).catch(() => {
+    setServiceState(service, "down");
+  }).finally(() => {
+    clearTimeout(timeout);
+    service.inFlight = null;
+    refreshWakeButton();
+    finishWakeIfIdle();
+  });
+  service.inFlight = request;
+  refreshWakeButton();
+  return request;
+}
+function wakeAll() {
+  if (bulkWaking || services.some((service) => service.inFlight)) return;
+  bulkWaking = true;
+  startWakeClock();
+  const requests = services.map((service) => wakeService(service));
+  refreshWakeButton();
+  Promise.all(requests).then(() => {
+    bulkWaking = false;
+    refreshWakeButton();
+    finishWakeIfIdle();
+  });
+}
+function retryService(service) {
+  if (service.inFlight) return;
+  startWakeClock();
+  wakeService(service);
 }
 
-function wakeAll(quiet) {
-  tiles.forEach((t) => wake(t, quiet && t.el.dataset.state === "ready"));
-}
-
-/* ---------- Keep awake while the page is open ---------- */
+/* Optional keep-alive only runs after the host enables it; it does not
+   silently wake all games when the catalogue first loads. */
 let keepTimer = null;
-function startKeepAwake() { stopKeepAwake(); keepTimer = setInterval(() => wakeAll(true), KEEP_AWAKE_EVERY_MS); }
 function stopKeepAwake() { clearInterval(keepTimer); keepTimer = null; }
-keepAwake.addEventListener("change", () => { keepAwake.checked ? (startKeepAwake(), wakeAll(true)) : stopKeepAwake(); });
-wakeAllBtn.addEventListener("click", () => wakeAll(false));
+function startKeepAwake() {
+  stopKeepAwake();
+  keepTimer = setInterval(() => {
+    services.forEach((service) => wakeService(service, true));
+  }, KEEP_AWAKE_EVERY_MS);
+}
+keepAwake.addEventListener("change", () => {
+  if (keepAwake.checked) {
+    startKeepAwake();
+    if (!services.some((service) => service.inFlight)) wakeAll();
+  } else {
+    stopKeepAwake();
+  }
+});
+wakeAllBtn.addEventListener("click", wakeAll);
+updateSummary();
 
 /* ---------- Large featured tile with complete horizontal game selector ---------- */
 const gameStrip = document.getElementById("gameStrip");
@@ -1246,7 +1431,19 @@ const gameButtons = tiles.map((t, i) => {
   stripName.textContent = t.game.name;
   b.appendChild(stripName);
   b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
-  b.setAttribute("aria-label", "Preview " + t.game.name);
+  b.setAttribute("aria-label", "Preview " + t.game.name + ". Server status: Not checked");
+  b.dataset.state = t.service ? t.service.state : "idle";
+  const stripState = document.createElement("span");
+  stripState.className = "strip-state";
+  const stripDot = document.createElement("span");
+  stripDot.className = "strip-dot";
+  stripDot.setAttribute("aria-hidden", "true");
+  const stripLabel = document.createElement("span");
+  stripLabel.className = "strip-state-label visually-hidden";
+  stripLabel.textContent = "Not checked";
+  stripState.append(stripDot, stripLabel);
+  b.appendChild(stripState);
+  if (t.service) t.service.stripBtn = b;
   b.addEventListener("click", () => selectGame(i, true));
   gameStrip.appendChild(b);
   return b;
@@ -1433,8 +1630,7 @@ let lastLit = -1;
 pickBtn.addEventListener("click", pickGame);
 
 /* ---------- Start ---------- */
-wakeAll(false);
-startKeepAwake();
+/* All statuses stay grey until the host presses Wake all games. */
 /* Selection starts on the first game; leave initial focus to the user. */
 </script>
 <script src="assets/collection-fullscreen.js?v=20261114" defer></script></body>
