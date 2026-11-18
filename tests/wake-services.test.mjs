@@ -40,7 +40,15 @@ test("all 20 exact service URLs are unique", () => {
   ];
   assert.equal(services.length, 20);
   assert.deepEqual(Array.from(services, (s) => s.url), expected);
-  assert.equal(new Set(services.map((s) => s.style).filter(Boolean)).size, 18);
+  assert.equal(new Set(services.map((s) => s.style).filter(Boolean)).size, 20);
+  const catalogueArray = script.match(/const GAMES = (\[[\s\S]*?\n\]);/);
+  assert.ok(catalogueArray, "launcher catalogue is present");
+  const catalogue = vm.runInNewContext(catalogueArray[1]);
+  assert.deepEqual(
+    Array.from(services, (service) => service.style).sort(),
+    Array.from(catalogue, (game) => game.style).sort(),
+    "all 20 catalogue tiles must have a wake-up service"
+  );
   assert.equal(new Set(services.map((s) => s.url)).size, 20);
 });
 test("wake requests are concurrent, opaque, abort after 90 seconds and retry individually", () => {
