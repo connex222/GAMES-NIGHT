@@ -7,7 +7,7 @@ The launcher for Shaun's TV + phone party games. Open it on the TV, pick a game,
 ## How to use it on a games night
 
 1. About ten minutes before people arrive, open the live site on the TV.
-2. Open each game you plan to play once, so it wakes up (free hosting sleeps when unused and can take up to a minute).
+2. Press **Wake all games** to wake the 20 Render services at once; the counter shows how many have responded, the timer shows elapsed time, and the status dots show each result. Open **All 20 game servers** to see individual statuses and tap **Retry** beside any failure. Optionally tick **Keep games awake** to refresh them every ten minutes while the launcher remains open. A green status means an opaque `no-cors` fetch completed, not that the game passed a full health check; individual requests time out after 90 seconds.
 3. Pick a game on the TV. Players scan the QR code or type the room code on their phones.
 
 ## How it is hosted
