@@ -970,6 +970,7 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
    ========================================================= */
 const WAKE_SERVICES = [
   { name: "Pocket Gamebox",      style: "pocket",   url: "https://dice-games-jx57.onrender.com/" },
+  { name: "Pocket Gamebox TV multiplayer", style: "pocket-multiplayer", url: "https://pocket-gamebox-multiplayer.onrender.com/health" },
   { name: "Smart Alec",          style: "smartalec",  url: "https://smart-alec-w100.onrender.com/health" },
   { name: "OCHE",                style: "oche",       url: "https://oche-master.onrender.com/" },
   { name: "Marble Rush",         style: "marble",   url: "https://marble-rush.onrender.com/" },
@@ -1275,7 +1276,7 @@ const tiles = GAMES.map((g) => {
 });
 
 /* ---------- Per-service status, elapsed time and independent retry ---------- */
-const STATUS_TEXT = { idle: "Not checked", waking: "Waking…", ready: "Awake", down: "Failed" };
+const STATUS_TEXT = { idle: "Not checked", waking: "Waking…", ready: "Responded", down: "Failed" };
 let wakeStartedAt = 0;
 let wakeClock = null;
 let bulkWaking = false;
@@ -1313,7 +1314,7 @@ services.forEach((service) => {
 function updateSummary() {
   const awake = services.filter((service) => service.state === "ready").length;
   const failed = services.filter((service) => service.state === "down").length;
-  summary.textContent = awake + " of " + services.length + " awake" + (failed ? " · " + failed + " failed" : "");
+  summary.textContent = awake + " of " + services.length + " responded" + (failed ? " · " + failed + " failed" : "");
   summary.closest(".side").dataset.status = awake > 0 ? "ready" : failed === services.length ? "down" : "checking";
 }
 function setServiceState(service, state) {

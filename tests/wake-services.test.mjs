@@ -15,9 +15,10 @@ const services = vm.runInNewContext(wakeArray[1]);
 test("the complete game script parses without syntax errors", () => {
   assert.doesNotThrow(() => new vm.Script(script));
 });
-test("all 20 exact service URLs are unique", () => {
+test("all 21 wake endpoint URLs are unique", () => {
   const expected = [
     "https://dice-games-jx57.onrender.com/",
+    "https://pocket-gamebox-multiplayer.onrender.com/health",
     "https://smart-alec-w100.onrender.com/health",
     "https://oche-master.onrender.com/",
     "https://marble-rush.onrender.com/",
@@ -38,18 +39,18 @@ test("all 20 exact service URLs are unique", () => {
     "https://noggin-0u32.onrender.com/health",
     "https://pub-quiz-powerhouse.onrender.com/healthz"
   ];
-  assert.equal(services.length, 20);
+  assert.equal(services.length, 21);
   assert.deepEqual(Array.from(services, (s) => s.url), expected);
-  assert.equal(new Set(services.map((s) => s.style).filter(Boolean)).size, 20);
+  assert.equal(new Set(services.map((s) => s.style).filter(Boolean)).size, 21);
   const catalogueArray = script.match(/const GAMES = (\[[\s\S]*?\n\]);/);
   assert.ok(catalogueArray, "launcher catalogue is present");
   const catalogue = vm.runInNewContext(catalogueArray[1]);
   assert.deepEqual(
-    Array.from(services, (service) => service.style).sort(),
+    Array.from(services, (service) => service.style).filter(style => style !== "pocket-multiplayer").sort(),
     Array.from(catalogue, (game) => game.style).sort(),
     "all 20 catalogue tiles must have a wake-up service"
   );
-  assert.equal(new Set(services.map((s) => s.url)).size, 20);
+  assert.equal(new Set(services.map((s) => s.url)).size, 21);
 });
 test("wake requests are concurrent, opaque, abort after 90 seconds and retry individually", () => {
   assert.match(script, /const WAKE_TIMEOUT_MS = 90 \* 1000/);
@@ -64,6 +65,6 @@ test("count, elapsed, four text statuses, accessible buttons and panel exist", (
   assert.match(html, /id="wakeElapsed"/);
   assert.match(html, /id="wakeList"/);
   assert.match(html, /id="summary" role="status" aria-live="polite"/);
-  for (const status of ["Not checked", "Waking…", "Awake", "Failed"]) assert.ok(script.includes(status));
+  for (const status of ["Not checked", "Waking…", "Responded", "Failed"]) assert.ok(script.includes(status));
   assert.match(html, /min-height:44px; min-width:72px/);
 });
