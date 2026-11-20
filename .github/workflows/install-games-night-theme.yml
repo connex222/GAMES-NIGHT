@@ -1,0 +1,39 @@
+name: Install original Games Night theme
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-games-night-theme.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  install-theme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download generated original music into tracked assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets
+          curl --fail --location --retry 4 --retry-delay 2 --max-time 120 \
+            'https://cdn.creativeclaw.co/u/f3e7a3b1/audio/ac4f118a-bce6-42a0-92cf-50b2c9e98559.mp3' \
+            -o assets/games-night-funky-showtime.mp3
+          test "$(wc -c < assets/games-night-funky-showtime.mp3)" -gt 100000
+          file --mime-type assets/games-night-funky-showtime.mp3 | grep -Eq 'audio/mpeg|audio/mp3|application/octet-stream'
+      - name: Commit music into the actual GitHub repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/games-night-funky-showtime.mp3
+          if git diff --cached --quiet; then
+            echo 'Theme already in repository'
+          else
+            git commit -m 'Bundle original funky Games Night theme locally'
+            git push
+          fi
