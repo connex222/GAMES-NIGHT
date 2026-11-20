@@ -955,7 +955,10 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
     <label class="toggle"><input type="checkbox" id="soundOn" checked> Sounds</label>
     <label class="toggle"><input type="checkbox" id="musicOn" checked> Gameshow music</label>
     <label class="music-volume">Volume <input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="32"></label>
-    <audio id="showMusic" src="assets/games-night-showtime.wav?v=20261120" preload="metadata" loop></audio>
+    <audio id="showMusic" preload="auto" loop>
+      <source src="assets/games-night-funky-showtime.mp3?v=20261120-funk" type="audio/mpeg">
+      <source src="assets/games-night-showtime.wav" type="audio/wav">
+    </audio>
   </section>
   <details class="wake-board" id="wake-status">
     <summary>All 20 game servers <span class="wake-board-hint">See results and retry failures</span></summary>
@@ -1556,9 +1559,15 @@ musicVolume.addEventListener("input", () => {showMusic.volume = Number(musicVolu
 showMusic.addEventListener("playing", syncMusicUI);
 showMusic.addEventListener("pause", syncMusicUI);
 showMusic.addEventListener("error", () => {
-  musicStatus.textContent = "The bundled WAV could not be loaded; check the deployed audio asset.";
+  musicStatus.textContent = "Lobby audio could not be loaded. Check the bundled MP3/WAV assets.";
   syncMusicUI();
 });
+// Request autoplay immediately on load. Browser policies may reject
+// unprompted sound; keep explicit Play and first-interaction fallback.
+if (musicOn.checked) void playGamesNightMusic();
+window.addEventListener("load", () => {
+  if (musicOn.checked && showMusic.paused) void playGamesNightMusic();
+}, {once:true});
 // An initial page click/keypress may unlock playback in browsers, but the
 // explicit Play button above works even when autoplay is denied.
 function tryMusicOnFirstInteraction(e) {
