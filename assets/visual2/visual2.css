@@ -356,3 +356,43 @@ header.top .side > * { margin-top: 0; margin-bottom: 0; }
   }
   header.top .side { gap: 8px !important; }
 }
+
+
+/* Logo fix: old max-height constrained its *visible width* because image is 4:3.
+   Allow natural height and centre independently of the controls. */
+header.top .marquee-inner .premium-hero-logo {
+  display:block !important;
+  width:min(100%, 840px) !important;
+  height:auto !important;
+  max-height:none !important;
+  max-width:100% !important;
+  margin:0 auto 10px !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+}
+header.top .marquee-inner {
+  align-items:center !important;
+  text-align:center !important;
+}
+header.top .marquee-inner .kicker,
+header.top .marquee-inner .intro {text-align:center !important;}
+header.top .side {justify-content:center !important;}
+#musicPlayButton {
+  min-height:48px;
+  border:2px solid #f3c776;
+  border-radius:12px;
+  padding:9px 18px;
+  background:linear-gradient(180deg,#f6d48d,#c78a25);
+  color:#171322;
+  font:800 1rem system-ui,sans-serif;
+  cursor:pointer;
+}
+#musicPlayButton:focus-visible {outline:3px solid #fff;outline-offset:3px;}
+#musicPlayButton[data-playing="true"] {background:#193854;color:#fff4d5;}
+#musicStatus {flex-basis:100%;text-align:center;font-size:.86rem;color:#ffe7b8;}
+@media(max-width:760px){
+  header.top .marquee-inner .premium-hero-logo {
+    width:100% !important;
+    max-height:none !important;
+  }
+}
