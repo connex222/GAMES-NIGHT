@@ -893,7 +893,7 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
   .wake-entry[data-state="waking"] .wake-dot { animation:none; }
 }
 </style>
-<link rel="stylesheet" href="assets/visual2/visual2.css">
+<link rel="stylesheet" href="assets/visual2/visual2.css?v=20261120-logo-music-fix">
 </head>
 <body>
 <div class="wrap">
@@ -925,6 +925,8 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
       <p class="summary" id="summary" role="status" aria-live="polite">0 of 20 awake</p>
       <p class="wake-elapsed" id="wakeElapsed" aria-live="off">Elapsed: 0:00</p>
       <button class="wake" id="wakeAll" type="button">Wake all games</button>
+      <button id="musicPlayButton" type="button" aria-pressed="false">▶ Play lobby music</button>
+      <span id="musicStatus" role="status" aria-live="polite">Music is ready — press Play to hear it.</span>
       <a class="wake-detail-link" href="#wake-status">View all statuses and retry failures</a>
       <button class="spin" id="pickBtn" type="button"><span aria-hidden="true">🎲</span><span>Pick a game</span><span class="button-arrow" aria-hidden="true">→</span></button>
       <p class="pick-result" id="pickResult" aria-live="polite"></p>
@@ -953,7 +955,7 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
     <label class="toggle"><input type="checkbox" id="soundOn" checked> Sounds</label>
     <label class="toggle"><input type="checkbox" id="musicOn" checked> Gameshow music</label>
     <label class="music-volume">Volume <input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="32"></label>
-    <audio id="showMusic" src="assets/games-night-showtime.wav" preload="none" loop></audio>
+    <audio id="showMusic" src="assets/games-night-showtime.wav?v=20261120" preload="metadata" loop></audio>
   </section>
   <details class="wake-board" id="wake-status">
     <summary>All 20 game servers <span class="wake-board-hint">See results and retry failures</span></summary>
@@ -1509,37 +1511,67 @@ grid.addEventListener("keydown", (e) => {
 const musicOn = document.getElementById("musicOn");
 const musicVolume = document.getElementById("musicVolume");
 const showMusic = document.getElementById("showMusic");
-showMusic.volume = .32;
-// Browsers block unprompted playback: begin the local soundtrack at the
-// first genuine pointer/keyboard interaction, then respect the music toggle.
-let musicStarted = false;
+const musicPlayButton = document.getElementById("musicPlayButton");
+const musicStatus = document.getElementById("musicStatus");
+showMusic.volume = Number(musicVolume.value) / 100;
+function syncMusicUI() {
+  const playing = !showMusic.paused;
+  musicPlayButton.dataset.playing = String(playing);
+  musicPlayButton.setAttribute("aria-pressed", String(playing));
+  musicPlayButton.textContent = playing ? "⏸ Pause lobby music" : "▶ Play lobby music";
+  if (playing) musicStatus.textContent = "Lobby music playing";
+}
 async function playGamesNightMusic() {
   if (!musicOn.checked) return;
   try {
     await showMusic.play();
-    musicStarted = true;
+    syncMusicUI();
   } catch (err) {
-    console.warn("Music needs a user gesture or could not start:", err);
+    musicStatus.textContent = "Music could not start. Check TV volume and press Play again.";
+    console.warn("Music could not start:", err);
+    syncMusicUI();
   }
 }
-function startMusicOnInteraction() {
-  if (!musicStarted && musicOn.checked) void playGamesNightMusic();
-}
-document.addEventListener("pointerdown", startMusicOnInteraction, {once:true});
-document.addEventListener("keydown", startMusicOnInteraction, {once:true});
+musicPlayButton.addEventListener("click", () => {
+  if (!showMusic.paused) {
+    musicOn.checked = false;
+    showMusic.pause();
+    musicStatus.textContent = "Lobby music paused";
+  } else {
+    musicOn.checked = true;
+    void playGamesNightMusic();
+  }
+  syncMusicUI();
+});
 musicOn.addEventListener("change", () => {
-  if (!musicOn.checked) { showMusic.pause(); return; }
-  void playGamesNightMusic();
+  if (!musicOn.checked) {
+    showMusic.pause();
+    musicStatus.textContent = "Lobby music switched off";
+    syncMusicUI();
+  } else {
+    void playGamesNightMusic();
+  }
 });
 musicVolume.addEventListener("input", () => {showMusic.volume = Number(musicVolume.value) / 100;});
+showMusic.addEventListener("playing", syncMusicUI);
+showMusic.addEventListener("pause", syncMusicUI);
 showMusic.addEventListener("error", () => {
-  musicOn.checked = false;
-  console.warn("The bundled Games Night music could not be loaded.");
+  musicStatus.textContent = "The bundled WAV could not be loaded; check the deployed audio asset.";
+  syncMusicUI();
 });
+// An initial page click/keypress may unlock playback in browsers, but the
+// explicit Play button above works even when autoplay is denied.
+function tryMusicOnFirstInteraction(e) {
+  if (e.target === musicPlayButton || e.target === musicOn || e.target === musicVolume) return;
+  if (musicOn.checked && showMusic.paused) void playGamesNightMusic();
+}
+document.addEventListener("pointerdown", tryMusicOnFirstInteraction, {once:true});
+document.addEventListener("keydown", tryMusicOnFirstInteraction, {once:true});
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) showMusic.pause();
-  else if (musicOn.checked) showMusic.play().catch(() => {musicOn.checked=false;});
+  else if (musicOn.checked) void playGamesNightMusic();
 });
+syncMusicUI();
 const soundOn = document.getElementById("soundOn");
 let audio = null;
 function tone(freq, start, dur, type, vol) {
