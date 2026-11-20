@@ -951,7 +951,7 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
     <p>Free hosting may take around a minute to wake. Press <strong>Wake all games</strong> before playing. Optionally keep the servers awake every 10 minutes while this page stays open.</p>
     <label class="toggle"><input type="checkbox" id="keepAwake"> Keep games awake</label>
     <label class="toggle"><input type="checkbox" id="soundOn" checked> Sounds</label>
-    <label class="toggle"><input type="checkbox" id="musicOn"> Gameshow music</label>
+    <label class="toggle"><input type="checkbox" id="musicOn" checked> Gameshow music</label>
     <label class="music-volume">Volume <input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="32"></label>
     <audio id="showMusic" src="assets/games-night-showtime.wav" preload="none" loop></audio>
   </section>
@@ -1510,10 +1510,26 @@ const musicOn = document.getElementById("musicOn");
 const musicVolume = document.getElementById("musicVolume");
 const showMusic = document.getElementById("showMusic");
 showMusic.volume = .32;
-musicOn.addEventListener("change", async () => {
+// Browsers block unprompted playback: begin the local soundtrack at the
+// first genuine pointer/keyboard interaction, then respect the music toggle.
+let musicStarted = false;
+async function playGamesNightMusic() {
+  if (!musicOn.checked) return;
+  try {
+    await showMusic.play();
+    musicStarted = true;
+  } catch (err) {
+    console.warn("Music needs a user gesture or could not start:", err);
+  }
+}
+function startMusicOnInteraction() {
+  if (!musicStarted && musicOn.checked) void playGamesNightMusic();
+}
+document.addEventListener("pointerdown", startMusicOnInteraction, {once:true});
+document.addEventListener("keydown", startMusicOnInteraction, {once:true});
+musicOn.addEventListener("change", () => {
   if (!musicOn.checked) { showMusic.pause(); return; }
-  try { await showMusic.play(); }
-  catch (err) { musicOn.checked = false; console.warn("Music could not start:", err); }
+  void playGamesNightMusic();
 });
 musicVolume.addEventListener("input", () => {showMusic.volume = Number(musicVolume.value) / 100;});
 showMusic.addEventListener("error", () => {
