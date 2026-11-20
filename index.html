@@ -898,7 +898,7 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
 <body>
 <div class="wrap">
   <nav class="site-nav" aria-label="Game Night navigation">
-    <a class="site-brand" href="#top" aria-label="Game Night home"><img class="nav-premium-logo" src="assets/games-night-logo-2.webp" alt="Games Night"></a>
+    <a class="site-brand" href="#top" aria-label="Game Night home"><img class="nav-premium-logo" src="assets/games-night-premium-transparent.webp" alt="Games Night"></a>
     <div class="site-nav-links">
       <a href="#top" aria-current="page">Home</a>
       <a href="#games">Games</a>
@@ -912,7 +912,7 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
     <div class="marquee">
       <div class="marquee-inner">
         <p class="kicker">Tonight’s line-up</p>
-        <h1 class="visually-hidden">Games Night</h1><img class="premium-hero-logo" src="assets/games-night-logo-2.webp" alt="Games Night — The Party Game Collection">
+        <h1 class="visually-hidden">Games Night</h1><img class="premium-hero-logo" src="assets/games-night-premium-transparent.webp" alt="Games Night — The Party Game Collection">
         <p class="intro">Pick a game. Open it on the TV, then join on your phones.</p>
         <div class="hero-features" aria-label="How Game Night works">
           <span class="hero-feature"><span class="feature-icon" aria-hidden="true">♧</span><span><strong>Play together</strong><small>On your phones</small></span></span>
@@ -953,7 +953,7 @@ button.wake:disabled { cursor:progress; filter:brightness(.82) saturate(.76); }
     <label class="toggle"><input type="checkbox" id="soundOn" checked> Sounds</label>
     <label class="toggle"><input type="checkbox" id="musicOn"> Gameshow music</label>
     <label class="music-volume">Volume <input id="musicVolume" aria-label="Music volume" type="range" min="0" max="100" value="32"></label>
-    <audio id="showMusic" src="https://cdn.creativeclaw.co/u/f3e7a3b1/audio/4c02b176-0403-4a40-bd6f-8f750e1e0648.mp3" preload="none" loop></audio>
+    <audio id="showMusic" src="assets/games-night-showtime.wav" preload="none" loop></audio>
   </section>
   <details class="wake-board" id="wake-status">
     <summary>All 20 game servers <span class="wake-board-hint">See results and retry failures</span></summary>
@@ -1517,11 +1517,8 @@ musicOn.addEventListener("change", async () => {
 });
 musicVolume.addEventListener("input", () => {showMusic.volume = Number(musicVolume.value) / 100;});
 showMusic.addEventListener("error", () => {
-  if (!showMusic.dataset.fallback) {
-    showMusic.dataset.fallback = "true";
-    showMusic.src = "assets/games-night-showtime.wav";
-    if (musicOn.checked) showMusic.play().catch(() => {musicOn.checked = false;});
-  } else { musicOn.checked = false; console.warn("Gameshow audio could not be loaded."); }
+  musicOn.checked = false;
+  console.warn("The bundled Games Night music could not be loaded.");
 });
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) showMusic.pause();
