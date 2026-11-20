@@ -303,3 +303,56 @@ button.spin:disabled {background-image:url('controls/button-primary-disabled-820
 @media (max-width:360px) {
  .game-name-button.has-strip-logo .v2-strip-logo {height:45px!important;max-height:45px!important;}
 }
+
+
+/* Games Night main logo: dominant, centred and responsive across the entire hero. */
+header.top {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: clamp(12px, 1.7vw, 22px) !important;
+}
+header.top .marquee {
+  width: 100%;
+  min-width: 0;
+}
+header.top .marquee-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+header.top .premium-hero-logo {
+  display: block;
+  width: min(100%, 1020px) !important;
+  max-width: 100%;
+  max-height: 345px !important;
+  height: auto !important;
+  margin: 4px auto 8px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+header.top .intro {
+  max-width: 100%;
+  text-align: center;
+}
+header.top .hero-features {
+  justify-content: center;
+  width: 100%;
+}
+header.top .side {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+header.top .side > * { margin-top: 0; margin-bottom: 0; }
+@media (max-width: 760px) {
+  header.top .premium-hero-logo {
+    width: 100% !important;
+    max-height: 230px !important;
+  }
+  header.top .side { gap: 8px !important; }
+}
